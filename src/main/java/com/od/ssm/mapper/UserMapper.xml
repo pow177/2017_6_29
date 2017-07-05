@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.od.ssm.mapper.UserMapper" >
+ <resultMap id="getUserg" type="com.od.ssm.po.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="username" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+   <select id="getUserbyId" resultMap="getUserg" parameterType="java.lang.Integer" >
+   	SELECT * FROM User WHERE id=#{id}
+   </select>
+
+
+  </mapper>
