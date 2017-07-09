@@ -53,6 +53,16 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.0" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.4" />
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.0" />
+          <element id="library" level="project" name="Maven: org.apache.poi:poi:3.14" />
+          <element id="library" level="project" name="Maven: org.apache.poi:poi-excelant:3.14" />
+          <element id="library" level="project" name="Maven: org.apache.ant:ant:1.8.2" />
+          <element id="library" level="project" name="Maven: org.apache.ant:ant-launcher:1.8.2" />
+          <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml:3.14" />
+          <element id="library" level="project" name="Maven: com.github.virtuald:curvesapi:1.03" />
+          <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml-schemas:3.14" />
+          <element id="library" level="project" name="Maven: org.apache.xmlbeans:xmlbeans:2.6.0" />
+          <element id="library" level="project" name="Maven: stax:stax-api:1.0.1" />
+          <element id="library" level="project" name="Maven: org.apache.poi:poi-scratchpad:3.14" />
         </element>
       </element>
       <element id="directory" name="META-INF">
