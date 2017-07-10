@@ -3,7 +3,9 @@
 <mapper namespace="com.od.ssm.mapper.UserMapper" >
  <resultMap id="getUserg" type="com.od.ssm.po.User" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="username" property="userName" jdbcType="VARCHAR" />
+    <result column="phone_number" property="userName" jdbcType="VARCHAR" />
+     <result column="password" property="password" jdbcType="VARCHAR" />
+     <result column="name" property="name" jdbcType="VARCHAR" />
   </resultMap>
    <select id="getUserbyId" resultMap="getUserg" parameterType="java.lang.Integer" >
    	SELECT * FROM User WHERE id=#{id}

@@ -364,9 +364,26 @@
       <artifactId>poi-scratchpad</artifactId>
       <version>3.14</version>
     </dependency>
+<!-- 通用mapper -->
+    <dependency>
+      <groupId>tk.mybatis</groupId>
+      <artifactId>mapper</artifactId>
+      <version>3.3.7</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.persistence</groupId>
+      <artifactId>persistence-api</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <!-- 通用mapper -->
 
-
-
+    <!-- hibernate-validator -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>5.1.1.Final</version>
+    </dependency>
+    <!-- hibernate-validator end -->
   </dependencies>
   <!--解决Intellij构建项目时，target/classes目录下不存在mapper.xml文件-->
   <build>

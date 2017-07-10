@@ -10,9 +10,8 @@ import com.od.ssm.service.UserService;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper userMapper;
-	public User getUser(Integer id) {
-		
-		return userMapper.getUserbyId(id);
+	public void insertUser(User user){
+		userMapper.insert(user);
 	}
 	
 }

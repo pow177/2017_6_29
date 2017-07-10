@@ -12,7 +12,7 @@
     <title>Title</title>
 </head>
 <body>
-<a href="${pageContext.request.contextPath}/makeExcel.action">MakeExcel</a>
+<a href="${pageContext.request.contextPath}/makeExcel.action">MakeExcel </a>
 <a href="${pageContext.request.contextPath}/putInExcel.action">putInExcel</a>
 </body>
 </html>
