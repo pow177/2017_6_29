@@ -18,4 +18,11 @@ public class BookTableServiceImpl implements BookTableService{
    public void insertBookTableMessage(BookTable bt){
             BTMapper.insert(bt);
     }
+
+    public int selectByPhoneAndTime(BookTable bt){
+//进行查询操作
+       int count = BTMapper.selectCountByBookNameAndPhone(bt);
+       return count;
+
+    }
 }

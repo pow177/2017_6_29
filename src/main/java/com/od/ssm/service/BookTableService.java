@@ -10,4 +10,5 @@ import org.springframework.stereotype.Service;
 
 public interface BookTableService {
     public void insertBookTableMessage(BookTable bt);
+    public int selectByPhoneAndTime(BookTable bt);
 }

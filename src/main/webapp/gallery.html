@@ -7,9 +7,42 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by freehtml5.co" />
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
-	
+		<style>
+			span.error {
+				color:red;
+			}
+		</style>
 
-	
+		<style>
+			.myZoom{
+				zoom: 0.7;}
+			.editor{position:relative;border:solid 1px #eee;width:500px;height:300px}
+			.login{position:absolute;z-index:9999;line-height:30px;top:50%;margin-top:-15px;text-align:center;width:100%;left:0px}
+			.mask{width:100%;height:100%;background-color:#eee;z-index:100;position:absolute;top:0px;left:0px;opacity:.2;filter:alpha(opacity=20)}
+		.myClass{
+			/*background-image: url(././resources/page2/images/bg2.jpg);*/
+			/*height: 900px;*/
+			}
+			.commentList .item{list-style: none outside none;margin: 1.6rem 0 0}
+			.commentList .avatar{border: 1px solid transparent;float: left}
+			.comment-main{position:relative;margin-left:64px;border:1px solid #dedede;border-radius:2px}
+			.comment-main:before,.comment-main:after{position:absolute;top:11px;left:-16px;right:100%;width:0;height:0;display:block;content:" ";border-color:transparent;border-style:solid solid outset;pointer-events:none}
+			.comment-main:before{border-right-color:#dedede;border-width:8px}
+			.comment-main:after{border-width:7px;border-right-color:#f8f8f8;margin-top:1px;margin-left:2px}
+			.comment-header{padding:10px 15px;background:#f8f8f8;border-bottom:1px solid #eee}
+			.comment-title{margin:0 0 8px 0;font-size:1.6rem;line-height:1.2}
+			.comment-meta{font-size:13px;color:#999;line-height:1.2}
+			.comment-meta a{color:#999}
+			.comment-author{font-weight:700;color:#999}
+			.comment-body{padding:15px;overflow:hidden}
+			.comment-body>:last-child{margin-bottom:0}
+			.commentList .comment-flip .avatar {float: right}
+			.comment-flip .comment-main{margin-left: 0; margin-right: 64px}
+			.comment-flip .comment-main:before {border-left-color: #dedede;border-right-color: transparent}
+			.comment-flip .comment-main:before, .comment-flip .comment-main:after {left: 100%;position: absolute;right: -16px}
+			.comment-flip .comment-main:after {border-left-color: #f8f8f8;border-right-color: transparent;margin-left: auto;margin-right: 2px}
+		</style>
+
 
   	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
@@ -37,13 +70,18 @@
 
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="././resources/page2/css/style.css">
+		<link rel="stylesheet" href="././resources/page1/css/style.css">
+		<link rel="stylesheet" href="././resources/css/wangEditor.min.css">
 
-	<!-- Modernizr JS -->
+		<link rel="stylesheet" href="././resources/page1/css/animate.css">
+
+		<!-- Modernizr JS -->
 	<script src="././resources/page2/js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
 	<script src="././resources/page2/js/respond.min.js"></script>
 	<![endif]-->
+
 
 	</head>
 	<body>
@@ -67,6 +105,11 @@
 							</li>
 							<li class="active"><a href="reservation.html">Reservation</a></li>
 							<li><a href="about.html">About</a></li>
+
+							<li class="dropdown pull-right" ></li>
+
+
+							</ul>
 
 						</ul>
 					</div>
@@ -93,48 +136,48 @@
 				
 
 				<div class="col-md-3 col-sm-3 fh5co-gallery_item">
-					<div class="fh5co-bg-img" style="background-image: url(images/gallery_1.jpeg);" data-trigger="zoomerang"></div>
-					<div class="fh5co-bg-img" style="background-image: url(images/gallery_2.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img" style="background-image: url(././resources/page2/images/gallery_1.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img" style="background-image: url(././resources/page2/images/gallery_2.jpeg);" data-trigger="zoomerang"></div>
 				</div>
 				<div class="col-md-6 col-sm-6 fh5co-gallery_item">
 					<div class="fh5co-bg-img fh5co-gallery_big" style="background-image: url(././resources/page2/images/gallery_8.jpeg);" data-trigger="zoomerang"></div>
 				</div>
 				<div class="col-md-3 col-sm-3 fh5co-gallery_item">
-					<div class="fh5co-bg-img" style="background-image: url(images/gallery_4.jpeg);" data-trigger="zoomerang"></div>
-					<div class="fh5co-bg-img" style="background-image: url(images/gallery_5.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img" style="background-image: url(././resources/page2/images/gallery_4.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img" style="background-image: url(././resources/page2/images/gallery_5.jpeg);" data-trigger="zoomerang"></div>
 				</div>
 
 				<div class="col-md-3 col-sm-3 fh5co-gallery_item">
-					<div class="fh5co-bg-img" style="background-image: url(images/gallery_5.jpeg);" data-trigger="zoomerang"></div>
-					<div class="fh5co-bg-img" style="background-image: url(images/gallery_6.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img" style="background-image: url(././resources/page2/images/gallery_5.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img" style="background-image: url(././resources/page2/images/gallery_6.jpeg);" data-trigger="zoomerang"></div>
 				</div>
 				<div class="col-md-3 col-sm-3 fh5co-gallery_item">
-					<div class="fh5co-bg-img" style="background-image: url(images/gallery_7.jpeg);" data-trigger="zoomerang"></div>
-					<div class="fh5co-bg-img" style="background-image: url(images/gallery_8.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img" style="background-image: url(././resources/page2/images/gallery_7.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img" style="background-image: url(././resources/page2/images/gallery_8.jpeg);" data-trigger="zoomerang"></div>
 				</div>
 				<div class="col-md-6 col-sm-6 fh5co-gallery_item">
-					<div class="fh5co-bg-img fh5co-gallery_big" style="background-image: url(images/gallery_9.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img fh5co-gallery_big" style="background-image: url(././resources/page2/images/gallery_9.jpeg);" data-trigger="zoomerang"></div>
 				</div>
 
 				<div class="col-md-3 col-sm-3 fh5co-gallery_item">
-					<div class="fh5co-bg-img" style="background-image: url(images/gallery_1.jpeg);" data-trigger="zoomerang"></div>
-					<div class="fh5co-bg-img" style="background-image: url(images/gallery_2.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img" style="background-image: url(././resources/page2/images/gallery_1.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img" style="background-image: url(././resources/page2/images/gallery_2.jpeg);" data-trigger="zoomerang"></div>
 				</div>
 				<div class="col-md-6 col-sm-6 fh5co-gallery_item">
-					<div class="fh5co-bg-img fh5co-gallery_big" style="background-image: url(images/gallery_8.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img fh5co-gallery_big" style="background-image: url(././resources/page2/images/gallery_8.jpeg);" data-trigger="zoomerang"></div>
 				</div>
 				<div class="col-md-3 col-sm-3 fh5co-gallery_item">
-					<div class="fh5co-bg-img" style="background-image: url(images/gallery_4.jpeg);" data-trigger="zoomerang"></div>
-					<div class="fh5co-bg-img" style="background-image: url(images/gallery_5.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img" style="background-image: url(././resources/page2/images/gallery_4.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img" style="background-image: url(././resources/page2/images/gallery_5.jpeg);" data-trigger="zoomerang"></div>
 				</div>
 
 				<div class="col-md-3 col-sm-3 fh5co-gallery_item">
-					<div class="fh5co-bg-img" style="background-image: url(images/gallery_5.jpeg);" data-trigger="zoomerang"></div>
-					<div class="fh5co-bg-img" style="background-image: url(images/gallery_6.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img" style="background-image: url(././resources/page2/images/gallery_5.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img" style="background-image: url(././resources/page2/images/gallery_6.jpeg);" data-trigger="zoomerang"></div>
 				</div>
 				<div class="col-md-3 col-sm-3 fh5co-gallery_item">
-					<div class="fh5co-bg-img" style="background-image: url(images/gallery_7.jpeg);" data-trigger="zoomerang"></div>
-					<div class="fh5co-bg-img" style="background-image: url(images/gallery_8.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img" style="background-image: url(././resources/page2/images/gallery_7.jpeg);" data-trigger="zoomerang"></div>
+					<div class="fh5co-bg-img" style="background-image: url(././resources/page2/images/gallery_8.jpeg);" data-trigger="zoomerang"></div>
 				</div>
 				<div class="col-md-6 col-sm-6 fh5co-gallery_item">
 					<div class="fh5co-bg-img fh5co-gallery_big" style="background-image: url(././resources/page2/images/gallery_9.jpeg);" data-trigger="zoomerang"></div>
@@ -143,31 +186,103 @@
 		</div>
 	</div>
 
+
 	<div id="fh5co-featured-testimony" class="fh5co-section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12 fh5co-heading animate-box">
-					<h2>Testimony</h2>
-					<div class="row">
-						<div class="col-md-6">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ab debitis sit itaque totam, a maiores nihil, nulla magnam porro minima officiis! Doloribus aliquam voluptates corporis et tempora consequuntur ipsam, itaque, nesciunt similique commodi omnis.</p>
+				<div class="jumbotron">
+					<div class="list-group">
+					<ul class="commentList">
+
+						<li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="http://static.h-ui.net/h-ui/images/ucnter/avatar-default.jpg"></i></a>
+							<div class="comment-main">
+								<header class="comment-header">
+									<div class="comment-meta"><a class="comment-author" href="#">辉哥</a> 评论于
+										<time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time>
+									</div>
+								</header>
+								<div class="comment-body">
+									<p><a href="#">@某人</a> 你是猴子派来的救兵吗？</p>
+								</div>
+
+							</div>
+						</li>
+						<li class="item cl" style="text-align: right"> <a href="#">回复</a></li>
+
+						<!-- 子ul -->
+						<div class="myZoom">
+						<ul class="commentList">
+							<li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="http://static.h-ui.net/h-ui/images/ucnter/avatar-default.jpg"></i></a>
+								<div class="comment-main">
+									<header class="comment-header">
+										<div class="comment-meta"><a class="comment-author" href="#">辉哥</a> 评论于
+											<time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time>
+										</div>
+									</header>
+									<div class="comment-body">
+										<p><a href="#">@某人</a> 你是猴子派来的救兵吗？</p>
+									</div>
+
+								</div>
+							</li>
+							<li class="item cl" style="text-align: right"> <a href="#">回复</a></li>
+
+							<li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="http://static.h-ui.net/h-ui/images/ucnter/avatar-default.jpg"></i></a>
+								<div class="comment-main">
+									<header class="comment-header">
+										<div class="comment-meta"><a class="comment-author" href="#">辉哥</a> 评论于
+											<time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time>
+										</div>
+									</header>
+									<div class="comment-body">
+										<p><a href="#">@某人</a> 你是猴子派来的救兵吗？</p>
+									</div>
+
+								</div>
+							</li>
+							<li class="item cl" style="text-align: right"> <a href="#">回复</a></li>
+
+							<li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="http://static.h-ui.net/h-ui/images/ucnter/avatar-default.jpg"></i></a>
+								<div class="comment-main">
+									<header class="comment-header">
+										<div class="comment-meta"><a class="comment-author" href="#">辉哥</a> 评论于
+											<time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time>
+										</div>
+									</header>
+									<div class="comment-body">
+										<p><a href="#">@某人</a> 你是猴子派来的救兵吗？</p>
+									</div>
+
+								</div>
+							</li>
+							<li class="item cl" style="text-align: right"> <a href="#">回复</a></li>
+						</ul>
 						</div>
-					</div>
-				</div>
+					</ul>
 
 
 
-			</div>
+
+
+<!-- -->		<!--富文本框 -->
+
+		<div style="width:80%;" class="center-block" >
+		<div id="editor" class="col-md-12" >
+        <div id="login"></div>
 		</div>
+
+		<div class="row">
+			<div style="width:90%" class="navbar-right" >
+				<a id="modal-529194" href="#modal-container-529194" role="button" class="btn btn-primary" data-toggle="modal">评论</a>
+		</div>
+		</div>
+		</div>
+			<!--富文本框结束-->
+			</div>
+			</div>
+			</div>
 	</div>
-
-
-
-	<footer id="fh5co-footer" role="contentinfo" class="fh5co-section">
-
-
-
-
+		<footer id="fh5co-footer" role="contentinfo" class="fh5co-section">
 			<div class="row copyright">
 				<div class="col-md-12 text-center">
 					<p>
@@ -175,10 +290,10 @@
 					</p>
 
 				</div>
+
 			</div>
 
-
-	</footer>
+		</footer>
 	</div>
 
 	<div class="gototop js-top">
@@ -201,6 +316,54 @@
 	<!-- Main -->
 	<script src="././resources/page2/js/main.js"></script>
 
+	<script type="text/javascript" src="././resources/script/wangEditor.min.js"></script>
+
+
+
+	<!--富文本-->
+	<script type="text/javascript">
+        var E = window.wangEditor;
+        var editor = new E('#editor');
+        // 或者 var editor = new E( document.getElementById('#editor') )
+        editor.customConfig.uploadImgServer = '${pageContext.request.contextPath}/FFTT.action';
+
+        editor.customConfig.menus = [
+            'emoticon',  // 表情
+            'image',  // 插入图片
+            'video',  // 插入视频
+			'list'  // 列表
+        ]
+
+        editor.create();
+
+
+
+
+
+
+        //        document.getElementById('btn1').addEventListener('click', function () {
+//            // 读取 html
+//            alert(editor.txt.html())
+//        }, false)
+//
+//        document.getElementById('btn2').addEventListener('click', function () {
+//            // 读取 text
+//            alert(editor.txt.text())
+//        }, false)
+//
+//        $("#btn3").click(function () {
+//            $("#hid_username").val(editor.txt.text());
+//
+//
+//        })
+        //        document.getElementById('btn3').addEventListener('click', function () {
+        //            // 读取 text
+        //            $("#hid_username").val(editor.txt.text());
+        //            alert(editor.txt.text())
+        //            return false
+        //        }, false)
+	</script>
+
 	<script>
 		Zoomerang
       .config({
@@ -212,6 +375,106 @@
       .listen('[data-trigger="zoomerang"]')
 	</script>
 
+
+		<!--遮zan窗体 -->
+		<div class="style-3">
+		<div class="modal" id="modal-container-529194" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title" id="myModalLabel">
+							登录Tasty账号
+						</h4>
+					</div>
+					<div class="modal-body">
+						<form action="#" class="fh5co-form animate-box" data-animate-effect="fadeInRight">
+
+
+							<div class="form-group">
+								<label for="phoneNumber" class="sr-only">手机号码</label>
+								<input type="text" style="color:black;" name="phoneNumber" class="form-control" id="phoneNumber" placeholder="手机号码" autocomplete="off">
+							</div>
+							<div class="form-group">
+								<label for="password" class="sr-only">密码</label>
+								<input type="password" style="color:black;"name="password" class="form-control" id="password" placeholder="密码" autocomplete="off">
+							</div>
+
+								<div class="form-group">
+									<label for="remember" style="color:black;"><input type="checkbox"  id="remember" >记住密码</label>
+							</div>
+							<div class="form-group">
+								<p>还没注册？<a href="sign-up3.html">注册</a> | <a href="forgot3.html">忘记密码</a></p>
+							</div>
+							<div class="form-group">
+								<input type="submit" value="登录" class="btn btn-primary">
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+			</div>
+
+		</div>
+
+	<!-- 窗体 -->
+
+	<!-- 登录前台验证 -->
+	<!-- 验证插件 -->
+	<script src="././resources/page2/js/jquery.validate.js"></script>
+	<script src="././resources/page2/js/validate-methods.js"></script>
+	<script src="././resources/page2/js/sign-inAjax.js"></script>
+	<script type="text/javascript">
+        $(window).load(function() {
+            //<!-- JQ validation 验证表单信息 -->
+            $('.fh5co-form.animate-box').validate({
+                errorElement: 'span',
+
+                rules: {
+                    password: {
+                        required: true,
+
+                    },
+                    phoneNumber: {
+                        required: true,
+                        isPhone: true,
+                        maxlength: 11,
+                        minlength: 11,
+                        number: true
+                    }
+                },
+                messages: {
+                    password: {
+                        required:"*请填写你的密码",
+
+                    },
+                    phoneNumber: {
+                        required: "*请填写你的手机号码",
+                        isPhone: "*请输入正确的手机号码",
+                        maxlength:"*请输入正确的手机号码",
+                        minlength:"*请输入正确的手机号码",
+                        number: "*请输入正确的手机号码"
+                    }
+                },
+
+                submitHandler: function(form) {//验证通过之后回调
+                    signInAjax()
+                },
+                invalidHandler: function(form, validator) {  //验证不通过之后回调
+                    return false;
+                }
+            });
+        })
+	</script>
+	<!-- end -->
+	<script type="text/javascript" src="././resources/page2/js/addLogo.js"></script>
+	<script type="text/javascript" src="././resources/page2/js/signOut.js"></script>
+	<script type="text/javascript">
+        $(document).ready(function (){
+            addLogo()
+        })
+	</script>
 	</body>
 </html>
 

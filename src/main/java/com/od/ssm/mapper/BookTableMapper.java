@@ -8,4 +8,7 @@ package com.od.ssm.mapper;
  * Created by 黄冠莳 on 2017/7/10.
  */
 public interface BookTableMapper extends Mapper<BookTable> {
+        public int selectCountByBookNameAndPhone(BookTable bt);
+
+
 }

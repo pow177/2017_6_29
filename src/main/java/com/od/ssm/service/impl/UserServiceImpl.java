@@ -1,5 +1,6 @@
 package com.od.ssm.service.impl;
 
+import com.od.ssm.util.StringToJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,5 +14,11 @@ public class UserServiceImpl implements UserService {
 	public void insertUser(User user){
 		userMapper.insert(user);
 	}
-	
+
+	public User validateAndGetUserSignInMessage(User user){
+		User tem = userMapper.validateAndGetUserSignInMessage(user);
+
+	return tem;
+	}
+
 }
