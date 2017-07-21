@@ -1,4 +1,12 @@
-
+<%--
+  Created by IntelliJ IDEA.
+  User: powerman
+  Date: 2017/7/15
+  Time: 10:43
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -31,17 +39,22 @@
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" href="././resources/page1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="././resources/page1/css/animate.css">
-    <link rel="stylesheet" href="././resources/page1/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/page1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/page1/css/animate.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/page1/css/style.css">
 
     <!-- Modernizr JS -->
-    <script src="././resources/page1/js/modernizr-2.6.2.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/page1/js/modernizr-2.6.2.min.js"></script>
     <!-- FOR IE9 below -->
     <!--[if lt IE 9]>
-    <script src="././resources/page1/js/respond.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/page1/js/respond.min.js"></script>
     <![endif]-->
-
+    <!-- 用于判断用户是否登录，若登录则自动重定向到其他主页 -->
+   <c:if test="${sessionScope.user!=null}">
+    <script language="JavaScript">
+        window.location.replace("${pageContext.request.contextPath}/gallery.html");
+    </script>
+   </c:if>
 </head>
 <body class="style-3">
 
@@ -61,24 +74,23 @@
 
             <!-- Start Sign In Form -->
             <form action="#" class="fh5co-form animate-box" data-animate-effect="fadeInRight">
-                <h2>注册Step2</h2>
-
+                <h2>忘记密码</h2>
                 <div class="form-group">
-                    <label for="password" class="sr-only">登录密码</label>
-                    <input type="text" class="form-control" id="password" placeholder="登录密码" autocomplete="off">
+                    <label for="name" class="sr-only">手机号码</label>
+                    <input type="text" class="form-control" id="name" placeholder="手机号码" autocomplete="off">
                 </div>
-
                 <div class="form-group">
-                    <label for="re-passWord" class="sr-only">确认密码</label>
-                    <input type="text" class="form-control" id="re-passWord" placeholder="确认密码" autocomplete="off">
+                    <label for="email" class="sr-only">邮箱号码</label>
+                    <input type="email" class="form-control" id="email" placeholder="邮箱号码" autocomplete="off">
                 </div>
-
                 <div class="form-group">
-                    <input type="submit" value="确认注册" class="btn btn-primary">
+                    <p><a href="sign-in3.action">登录</a> or <a href="sign-up3.action">注册</a></p>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Send" class="btn btn-primary">
                 </div>
             </form>
             <!-- END Sign In Form -->
-
 
         </div>
     </div>
@@ -86,15 +98,15 @@
 </div>
 
 <!-- jQuery -->
-<script src="././resources/page1/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/page1/js/jquery.min.js"></script>
 <!-- Bootstrap -->
-<script src="././resources/page1/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/page1/js/bootstrap.min.js"></script>
 <!-- Placeholder -->
-<script src="././resources/page1/js/jquery.placeholder.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/page1/js/jquery.placeholder.min.js"></script>
 <!-- Waypoints -->
-<script src="././resources/page1/js/jquery.waypoints.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/page1/js/jquery.waypoints.min.js"></script>
 <!-- Main JS -->
-<script src="././resources/page1/js/main.js"></script>
+<script src="${pageContext.request.contextPath}/resources/page1/js/main.js"></script>
 
 </body>
 </html>

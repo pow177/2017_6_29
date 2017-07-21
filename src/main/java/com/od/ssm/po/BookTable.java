@@ -23,7 +23,7 @@ public class BookTable {
     @Column(name="book_phone_number")
     private String bookPhoneNumber;
 
-    @Pattern(regexp="(0[1-9]|1[0-2])/(0[1-9]|1[1-9]|2[1-9]|3[0-1])/(2017|2018)\\s(0[0-9]|1[0-2]):([0-5][0-9]|60)\\s(AM|PM)",message="定台时间格式有误（注：只接受2年内的预定）")
+    @Pattern(regexp="(0[1-9]|1[0-2])/(0[1-9]|1[1-9]|2[1-9]|3[0-1])/(2017|2018)\\s([0-9]|11):([0-5][0-9]|60)\\s(AM|PM)",message="定台时间格式有误（注：只接受2年内的预定）")
     @Column(name="book_time")
     private String bookTime;         //(0[1-9]|1[0-2])/(0[1-9]|1[1-9]|2[1-9]|3[0-1])/(2017|2018)\s(0[0-9]|1[0-2]):([0-5][0-9]|60)\s(AM|PM)
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.od.ssm.mapper.ReplyMapper" >
+    <resultMap id="baseMap" type="com.od.ssm.po.User" >
+        <id column="r_id" property="r_id" jdbcType="INTEGER" />
+        <result column="c_id" property="c_id" jdbcType="INTEGER" />
+        <result column="c_words" property="c_words" jdbcType="VARCHAR" />
+        <result column="u_id" property="u_id" jdbcType="INTEGER" />
+
+        <association property="user" javaType="com.od.ssm.po.User">
+            <id property="u_id" column="u_id"/>
+            <result property="name" column="name"/>
+        </association>
+    </resultMap>
+
+
+<insert id="insertReplyAndGetId" parameterType="com.od.ssm.po.Reply">
+    <selectKey keyProperty="r_id" order="AFTER" resultType="java.lang.Integer">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
+
+    insert  into reply(r_words,u_id,c_id) VALUE (#{r_words},#{u_id},#{c_id})
+</insert>
+
+</mapper>
