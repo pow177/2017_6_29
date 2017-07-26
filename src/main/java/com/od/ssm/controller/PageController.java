@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by 黄冠莳 on 2017/7/15.
- * 用于纯属访问WEB-INF下的页面的控制器
+ * 控制页面转发 的控制器
  */
 @RequestMapping("/page")
 @Controller
@@ -35,5 +35,33 @@ public class PageController {
        }
         return "/sign-up3-2";
     }
+    //后台登录页面
+    @RequestMapping("/admin")
+        public String adminSign_in(HttpServletRequest request){
+        if(request.getSession().getAttribute("adminTor")!=null){
+            return "redirect:/page/table1.action";           //判断是否已经登录过，有的话直接跳过登录页面进入管理页面
+        }
+        return "/admin/adminSign_in";
+    }
 
+    @RequestMapping("/table1")
+        public String table1(HttpServletRequest request){
+            if(request.getParameter("excelMessage")!=null){
+                request.setAttribute("excelMessage",request.getParameter("excelMessage"));
+            }
+            if(request.getParameter("delMessage")!=null){
+                request.setAttribute("delMessage",request.getParameter("delMessage"));
+            }
+            return "/admin/table1";
+        }
+
+    @RequestMapping("/table2")
+    public String table2(){
+        return "admin/table2";
+    }
+
+    @RequestMapping("/table3")
+    public String table3(){
+        return "admin/table3";
+    }
 }

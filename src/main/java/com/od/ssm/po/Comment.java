@@ -21,7 +21,7 @@ public class Comment {
     private String c_words;            //主评论
 
 
-    @Column(name = "u_id")
+    @Column(name = "c_u_id")
     private Integer u_id;              //外键关联用户
 
     @Column(name="c_date")

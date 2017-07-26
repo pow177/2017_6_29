@@ -1,6 +1,6 @@
 package com.od.ssm.controller;
 
-import com.od.ssm.po.pageBean;
+import com.od.ssm.bean.PageBean;
 import com.od.ssm.po.Comment;
 import com.od.ssm.po.Reply;
 import com.od.ssm.po.User;
@@ -34,7 +34,7 @@ public class CommentController {
 
     @Autowired
     private ReplyService replyService;
-    //异步插入评论
+    //异步插入评论,并返回更新的评论
     @RequestMapping("/insertComment.action")
     @ResponseBody
     public String insertComment(HttpServletRequest request, @RequestBody @Validated Comment comment, BindingResult result){
@@ -52,9 +52,11 @@ public class CommentController {
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(new Date());
         comment.setC_date(date);   //设置成当前时间
-        String message = commentService.insertComment(comment);      //插入数据，成功则返回success
 
-        return StringToJson.strToJson(message);
+        String message = commentService.insertCommentAndGetNewComment(comment);      //插入数据，并且返回最后一页的数据过来
+
+        return message;
+
     }
 
 
@@ -67,9 +69,9 @@ public class CommentController {
 
     @RequestMapping("/getCommentByPage.action")
     @ResponseBody
-    public String getCommentByPage(@RequestBody pageBean pageBean){
+    public String getCommentByPage(@RequestBody PageBean PageBean){
 
-       String commentMessageList =  commentService.getCommentByPage(pageBean);
+       String commentMessageList =  commentService.getCommentByPage(PageBean);
         return commentMessageList;
     }
 
@@ -81,11 +83,38 @@ public class CommentController {
         //获取已登录的用户的信息
         User user = (User) request.getSession().getAttribute("user");
         //将用户的主键设置到reply u_id中
-        reply.setU_id(user.getU_id());
+        reply.setR_u_id(user.getU_id());
+        //当前评论时间
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(new Date());
+       //设置当前评论时间
+        reply.setR_date(date);
         //插入一条新的评论
-    String message = replyService.insertReply(reply);
-
-        return message;   //返回新插入的回复的json数据
+        String message = replyService.insertReply(reply);
+        return message;   //返回最后一页的数据
 
     }
+
+
+    //根据pageNum,c_id获得回复的数据
+    @RequestMapping("/getReplyByPage.action")
+    @ResponseBody
+    public String getReplyByPage(@RequestBody PageBean pageBean){
+       String message =  replyService.getReplyByPage(pageBean);
+       return message;
+    }
+
+
+    @RequestMapping("/editorTest")
+    @ResponseBody
+    public String editorTest(@RequestBody String biaoqing){
+
+        System.out.println("获得的表情"+biaoqing);
+        return "{\"biaoqing\":\"\"}";
+    }
+
+
+
+
+
 }

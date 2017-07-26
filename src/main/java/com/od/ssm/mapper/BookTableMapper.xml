@@ -4,7 +4,7 @@
     <resultMap id="baseMap" type="com.od.ssm.po.BookTable" >
         <id column="id" property="id" jdbcType="INTEGER" />
         <result column="book_name" property="bookName" jdbcType="VARCHAR" />
-        <result column="book_phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+        <result column="book_phone_number" property="bookPhoneNumber" jdbcType="VARCHAR" />
         <result column="book_people_number" property="bookPeopleNumber" jdbcType="VARCHAR" />
         <result column="book_time" property="bookTime" jdbcType="VARCHAR" />
     </resultMap>
@@ -13,4 +13,12 @@
     <select id="selectCountByBookNameAndPhone" resultType="int" parameterType="java.lang.String" >
         SELECT count(*) FROM BookTable WHERE book_time=#{bookTime} AND book_phone_number=#{bookPhoneNumber}
     </select>
+
+    <!-- 批量插入 -->
+    <insert id="insertListBookTables" parameterType="java.util.List">
+        insert into bookTable(book_name,book_phone_number,book_people_number,book_time) VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (#{item.bookName},#{item.bookPhoneNumber},#{item.bookPeopleNumber},#{item.bookTime})
+        </foreach>
+    </insert>
 </mapper>

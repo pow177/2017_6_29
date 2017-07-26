@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.od.ssm.mapper.ReplyMapper" >
-    <resultMap id="baseMap" type="com.od.ssm.po.User" >
+    <resultMap id="replyAndUserMap" type="com.od.ssm.po.Reply" >
         <id column="r_id" property="r_id" jdbcType="INTEGER" />
-        <result column="c_id" property="c_id" jdbcType="INTEGER" />
-        <result column="c_words" property="c_words" jdbcType="VARCHAR" />
-        <result column="u_id" property="u_id" jdbcType="INTEGER" />
+        <result column="r_c_id" property="c_id" jdbcType="INTEGER" />
+        <result column="r_words" property="r_words" jdbcType="VARCHAR" />
+        <result column="r_u_id" property="r_u_id" jdbcType="INTEGER" />
+        <result column="r_date" property="r_date" jdbcType="VARCHAR"/>
 
+        <!--这里是Reply关联的user -->
         <association property="user" javaType="com.od.ssm.po.User">
-            <id property="u_id" column="u_id"/>
+            <id property="u_id" column="r_u_id"/>
             <result property="name" column="name"/>
         </association>
+
+        <association property="comment" javaType="com.od.ssm.po.Comment">
+            <id property="c_id" column="r_c_id"/>
+            <result column="c_words" property="c_words" jdbcType="VARCHAR"/>
+            <result column="c_u_id" property="u_id" jdbcType="INTEGER"/>
+            <result column="c_date" property="c_date" jdbcType="VARCHAR"/>
+            <result column="pic_url" property="pic_url" jdbcType="VARCHAR"/>
+        </association>
+
     </resultMap>
 
 
-<insert id="insertReplyAndGetId" parameterType="com.od.ssm.po.Reply">
-    <selectKey keyProperty="r_id" order="AFTER" resultType="java.lang.Integer">
-        SELECT LAST_INSERT_ID()
-    </selectKey>
-
-    insert  into reply(r_words,u_id,c_id) VALUE (#{r_words},#{u_id},#{c_id})
+<insert id="insertReply" parameterType="com.od.ssm.po.Reply">
+    insert  into reply(r_words,r_u_id,r_c_id,r_date) VALUE (#{r_words},#{r_u_id},#{c_id},#{r_date})
 </insert>
 
+    <select id="selectReplyAndUser" parameterType="java.lang.Integer" resultMap="replyAndUserMap">
+          select user.name,reply.*,comment.* from reply INNER JOIN  user ON reply.r_u_id=user.u_id  LEFT JOIN comment ON reply.r_c_id=comment.c_id WHERE reply.r_c_id=#{c_id}
+
+    </select>
 </mapper>

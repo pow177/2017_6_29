@@ -17,7 +17,14 @@ public class Reply {
 
     private User user;
 
-    private Integer u_id;                     //外键关联user
+    @Column(name="r_u_id")
+    private Integer r_u_id;                     //外键关联user
+    @Column(name="r_c_id")
+    private Integer c_id; //外键关联 comment
+
+    private Comment comment;
+
+    private String r_date;
 
     public Integer getR_id() {
         return r_id;
@@ -43,11 +50,43 @@ public class Reply {
         this.user = user;
     }
 
-    public Integer getU_id() {
-        return u_id;
+
+
+
+
+    public Comment getComment() {
+        return comment;
     }
 
-    public void setU_id(Integer u_id) {
-        this.u_id = u_id;
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
+    public String getR_date() {
+        return r_date;
+    }
+
+    public void setR_date(String r_date) {
+        this.r_date = r_date;
+    }
+
+
+
+
+    public Integer getC_id() {
+        return c_id;
+    }
+
+    public void setC_id(Integer c_id) {
+        this.c_id = c_id;
+    }
+
+
+    public Integer getR_u_id() {
+        return r_u_id;
+    }
+
+    public void setR_u_id(Integer r_u_id) {
+        this.r_u_id = r_u_id;
     }
 }

@@ -23,8 +23,8 @@ public class WangEditor_Pic {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMddHHmmss");
         ObjectMapper objm = new ObjectMapper();
         //项目中的保存路径(本地服务器)
-        String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/uploadImage/";
-        String path = request.getRealPath("/uploadImage/");
+        String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/wangEditorUploadImage/";
+        String path = request.getRealPath("/wangEditorUploadImage/");
         File file = new File(path);
         if (!file.exists())
             file.mkdirs();

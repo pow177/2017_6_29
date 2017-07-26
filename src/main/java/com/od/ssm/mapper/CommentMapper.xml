@@ -4,13 +4,13 @@
     <resultMap id="commentAndUserMap" type="com.od.ssm.po.Comment" >
         <id column="c_id" property="c_id" jdbcType="INTEGER"/>
         <result column="c_words" property="c_words" jdbcType="VARCHAR"/>
-        <result column="u_id" property="u_id" jdbcType="INTEGER"/>
+        <result column="c_u_id" property="u_id" jdbcType="INTEGER"/>
         <result column="c_date" property="c_date" jdbcType="VARCHAR"/>
         <result column="pic_url" property="pic_url" jdbcType="VARCHAR"/>
     
     <association property="user" javaType="com.od.ssm.po.User">
         <!-- column是comment里面的user的唯一标识,property是user的主键-->
-        <id column="u_id" property="u_id"/>
+        <id column="c_u_id" property="u_id"/>
         <result column="name" property="name"/>
         <result column="phone_number" property="phoneNumber"/>
     </association>
@@ -18,10 +18,10 @@
 
 
 <select id="getCommentAndUserByPage" resultMap="commentAndUserMap">
-    SELECT comment.*,user.* FROM comment,user WHERE comment.u_id = user.u_id
+    SELECT comment.*,user.* FROM comment,user WHERE comment.c_u_id = user.u_id
 </select>
 
     <insert id="insertComment" parameterType="com.od.ssm.po.Comment">
-        insert into comment (c_id,c_words,u_id,pic_url,c_date) VALUE (#{c_id},#{c_words},#{u_id},#{pic_url},#{c_date})
+        insert into comment (c_id,c_words,c_u_id,pic_url,c_date) VALUE (#{c_id},#{c_words},#{u_id},#{pic_url},#{c_date})
     </insert>
 </mapper>

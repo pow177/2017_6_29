@@ -12,7 +12,9 @@ public class T1 {
 //        }catch(Exception e){
 //            System.out.print("错误");
 //        }
-
+        String str = "";
+        String[] tem = str.split(",");
+        System.out.println(tem[0]);
 
     }
 }

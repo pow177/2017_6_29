@@ -13,7 +13,7 @@ import java.util.Date;
 @Table(name="BookTable")
 public class BookTable {
     @Id
-    private int id;
+    private Integer id;
     @Column(name="book_name")
    //因为考虑到中文英文名称，所以正则只规范了三个字符以上的非数字字符串
     @Pattern(regexp="\\D{3}",message="名字有误")
@@ -30,6 +30,17 @@ public class BookTable {
     @Column(name="book_people_number")
     private  String bookPeopleNumber;
 
+    public BookTable(String bookName,String bookPhoneNumber,String bookPeopleNumber,String bookTime){
+            this.bookName = bookName;
+            this.bookPhoneNumber = bookPhoneNumber;
+        this.bookTime = bookTime;
+        this.bookPeopleNumber = bookPeopleNumber;
+    }
+
+    public  BookTable(){}
+
+
+
     public String getBookPeopleNumber() {
         return bookPeopleNumber;
     }
@@ -38,13 +49,7 @@ public class BookTable {
         this.bookPeopleNumber = bookPeopleNumber;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getBookName() {
         return bookName;
@@ -68,5 +73,13 @@ public class BookTable {
 
     public void setBookTime(String bookTime) {
         this.bookTime = bookTime;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
