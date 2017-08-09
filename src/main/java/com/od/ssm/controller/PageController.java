@@ -1,5 +1,6 @@
 package com.od.ssm.controller;
 
+import com.od.ssm.po.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,9 +31,10 @@ public class PageController {
     @RequestMapping("/sign-up3-2")
     public String signUp3_2(HttpServletRequest request){
        String phoneNumber = (String)request.getSession().getAttribute("hidden_phoneNumber");
-       if(phoneNumber!=null) {
-           request.setAttribute("hidden_phoneNumber", phoneNumber);
+       if(phoneNumber==null){
+          return "redirect:/gallery.html";     //若为空则表示存在直接访问该页的行为
        }
+           request.setAttribute("hidden_phoneNumber", phoneNumber);
         return "/sign-up3-2";
     }
     //后台登录页面
@@ -63,5 +65,34 @@ public class PageController {
     @RequestMapping("/table3")
     public String table3(){
         return "admin/table3";
+    }
+
+    @RequestMapping("/userZoom")
+    public String personZoom(HttpServletRequest request){
+        User user = (User)request.getSession().getAttribute("user");
+        if(user==null){
+            return "redirect:/gallery.html";
+        }
+        return "userZoom";
+    }
+    @RequestMapping("/uploadErrorPage")
+    public String uploadErrorPage(){
+        return "uploadErrorPage";
+    }
+    @RequestMapping("/sendEmailSuccess")
+    public String sendEmailSuccess(){
+        return "sendEmailSuccessPage";
+    }
+    @RequestMapping("/resetPassword")
+    public String resetPassword(){
+        return "resetPassword";
+    }
+    @RequestMapping("/updataPassWordErrorPage")
+    public String updataPassWordErrorPage(){
+        return "updataPassWordErrorPage";
+    }
+    @RequestMapping("/updataPassWordSuccessPage")
+    public String updataPassWordSuccessPage(){
+        return "updataPassWordSuccessPage";
     }
 }

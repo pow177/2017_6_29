@@ -40,9 +40,8 @@
                 <li class="dropdown pull-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> User <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+
+                        <li><a href="${pageContext.request.contextPath}/admin/signOut.action" id="signOut"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -59,8 +58,6 @@
     </form>
     <ul class="nav menu">
         <li class="active"><a href="${pageContext.request.contextPath}/page/table1.action"><span class="glyphicon glyphicon-list-alt"></span> 订台信息管理</a></li>
-        <li><a href="${pageContext.request.contextPath}/page/table2.action"><span class="glyphicon glyphicon-list-alt"></span> 用户权限管理</a></li>
-        <li><a href="${pageContext.request.contextPath}/page/table3.action"><span class="glyphicon glyphicon-list-alt"></span> 视频管理</a></li>
     </ul>
     <div class="attribution">Template by <a href="http://www.medialoot.com/item/lumino-admin-bootstrap-template/">Medialoot</a></div>
 </div><!--/.sidebar-->
@@ -86,10 +83,11 @@
                 <div class="panel-heading">订台信息</div>
                 <div class="panel-body">
                     <div><form action="${pageContext.request.contextPath}/admin/readExcel.action" method="post"  enctype="multipart/form-data">
-                       <input type="file" id="exampleInputFile" name="excelFile"/>
-                        <input type="submit" value="导入数据" id="sbm" disabled="disabled">
-                    </form></div>
-                    <table id="table1" data-toggle="table" data-url="tables/data1.json"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                       <input  type="file" id="exampleInputFile" name="excelFile"/>
+                        <input class="btn btn-default" type="submit" value="导入数据" id="sbm" disabled="disabled">
+
+                    </form><a class="btn btn-default" href="${pageContext.request.contextPath}/admin/writeExcel.action">导出数据</a></div>
+                    <table id="table1" data-toggle="table" data-url=""  data-show-refresh="true"  data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
 
                     </table>
                 </div>
@@ -132,9 +130,20 @@
 
 
 <script type="text/javascript">
+    //刷新
+    function tableReload(){
+        var opt = {
+            url: "${pageContext.request.contextPath}/admin/listBookTable.action",
+            silent: true,
+            query:{
+                type:1,
+                level:2
+            }
+        };
+        $("#table1").bootstrapTable('refresh', opt);
+    }
 
-
-
+//init数据
     var $table = $('#table1');
     $table.bootstrapTable({
         url: "${pageContext.request.contextPath}/admin/listBookTable.action",
@@ -236,7 +245,7 @@
                 contentType: 'application/json;charset=UTF-8',
                 dataType: 'json',
                 success:function(data){
-                   if(data.length>1) {
+                   if(data.message==null) {
                        for (var i in data) {
                            alert(data[i]);
                        }
@@ -251,7 +260,7 @@
                         $('#RF'+id).replaceWith('<a href="#"  id="F' + id + '\" onclick="edit(\'' + id+ '\',\'' + $(bookName).val() + '\',\'' + $(bookPhoneNumber).val() + '\',\'' + $(bookPeopleNumber).val() + '\',\'' + $(bookTime).val() + '\')">编辑</a> ')
                         $('#RS'+id).replaceWith('<a href="#"  id="S' + id + '\" onclick="del(\'' + id + '\',\'' + $(bookName).val() + '\')">删除</a> ')
 
-
+                        tableReload()
                     }
                 }
             })
@@ -270,6 +279,7 @@
                 success:function(data){
                         if(data.message=="success"){
                             $('#F'+id).parent().parent().remove()
+                            tableReload()
                         }
                 }
             })
@@ -291,9 +301,12 @@
 
 
     })
+
 </script>
 
+<script type="text/javascript">
 
+</script>
 
 
 

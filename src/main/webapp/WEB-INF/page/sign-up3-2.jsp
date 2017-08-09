@@ -77,6 +77,10 @@
                 <h2>注册Step2</h2>
                 <input type="hidden" name="phoneNumber" value="${requestScope.hidden_phoneNumber}">
                 <div class="form-group">
+                    <label for="email" class="sr-only">电子邮件</label>
+                    <input type="text" class="form-control" name="email" id="email" placeholder="电子邮件" autocomplete="off">
+                </div>
+                <div class="form-group">
                     <label for="password" class="sr-only">登录密码</label>
                     <input type="password" class="form-control" name="password"  id="password" placeholder="登录密码" autocomplete="off">
                 </div>
@@ -123,44 +127,54 @@
             errorElement: 'span',
 
             rules: {
+                email: {
+                    required: true,
+                    email:true
+
+                },
                 password: {
                     required: true,
                     minlength: 6,
                     maxlength: 20,
-                    number: true
+
                 },
                 re_password: {
                     required: true,
                     maxlength: 20,
                     minlength: 6,
-                    number: true
+
                 }
+
             },
             messages: {
+                email: {
+                    required: "请输入电子邮件",
+                    email: "请输入正确的电子邮件"
+
+                },
                 password: {
                     required: "*请再次输入相同的密码",
                     maxlength: "*密码长度长于20",
                     minlength: "*密码不能小于6位",
-                    number: true
+
 
                 },
                 re_password: {
                     required: "*请再次输入相同的密码",
                     maxlength: "*密码长度长于20",
                     minlength: "*密码不能小于6位",
-                    number: true
-            },
-
-            submitHandler: function(form) {//验证通过之后回调
-                form.submit
 
 
+                },
+                submitHandler: function (form) {//验证通过之后回调
+                    form.submit
 
-            },
-            invalidHandler: function(form, validator) {  //验证不通过之后回调
-                return false;
 
-            }
+                },
+                invalidHandler: function (form, validator) {  //验证不通过之后回调
+                    return false;
+
+                }
             }
             });
 

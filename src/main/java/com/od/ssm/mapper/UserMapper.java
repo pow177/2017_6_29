@@ -10,5 +10,6 @@ public interface UserMapper extends Mapper<User> {
 //根据手机号码跟密码验证用户信息是否存在
     public User validateAndGetUserSignInMessage(User user);
     public User getUserById(Integer id);
+    public int insertAndGetKey(User user);
 
 }

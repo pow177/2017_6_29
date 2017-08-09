@@ -1,22 +1,28 @@
 function signInAjax(editor){
+   if($("#remember").is(':checked')){    //判读checkBox是否选中
+    var remember = $("#remember").val()
+   }else{
+       var remember = "";
+   }
+
     $.ajax({
-        url: "http://localhost:8080/maven2-ssm/sign-in.action",
+        url: "http://47.93.49.124:81/tasty/sign-in.action",
         type: "post",
         contentType: 'application/json;charset=UTF-8',
-        data: '{"phoneNumber":"'+$('#phoneNumber').val()+'","password":"'+$('#password').val()+'"}',
+        data: '{"user":{"phoneNumber":"'+$('#phoneNumber').val()+'","password":"'+$('#password').val()+'"},"remember":"'+remember+'"}',
         dataType: 'json',
         success: function (data) {
-            var message= data.message;
 
 
-            if(data!=null){        //登录成功
 
+            if(data.message=="success"){        //登录成功
+                editor.$textElem.attr('contenteditable', true);
                 var id= data.id;
-                $('.dropdown.pull-right').html('<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> User<span class="caret"></span></a> <ul class="dropdown-menu" role="menu"> <li><a href="#" id="signOut"><span class="glyphicon glyphicon-log-out" style="color: black"></span><p style="color: black">注销</p></a></li> <li><a href="http://localhost:8080/maven2-ssm/goToPersonZoo.action?id='+id+'" id="personZoo"><span class="glyphicon glyphicon-log-out" style="color: black"></span><p style="color: black">个人空间</p></a></li> </ul>')
+                $('.dropdown.pull-right').html('<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> User<span class="caret"></span></a> <ul class="dropdown-menu" role="menu"> <li id="signOut"><a href="#" id=""><span class="glyphicon glyphicon-log-out" style="color: black"></span><p style="color: black">注销</p></a></li> <li><a href="http://47.93.49.124:81/tasty/page/userZoom.action" id="personZoo"><span class="glyphicon glyphicon-log-out" style="color: black"></span><p style="color: black">个人空间</p></a></li> </ul>')
                 $('.close').click()
                 $('#modal-529194').replaceWith('<span class="comment"><input type="button" id="modal-529194" value="评论" name="pinlunBTN" class="btn btn-primary"/></span>')
                 //为注销添加点击事件
-                $('.dropdown-menu li a').click(function () {
+                $('#signOut a').click(function () {
                     signOut()
                     return false;
                 })
@@ -24,7 +30,7 @@ function signInAjax(editor){
 
 
                 //评论点击事件
-                $('.btn.btn-primary').click(function (){
+                $('.comment input[name="pinlunBTN"]').click(function (){
 
                     if(editor.txt.text().length<=0){
                         alert("请填写评论信息")
@@ -35,14 +41,33 @@ function signInAjax(editor){
                         return false
                     }
 
+                    //将富文本的图片的url拼起来
+                    var picStr = "";
+                    var picList1 =  editor.$textElem.children()
+                    for(var im1=0;im1<picList1.length;im1++){
+                        if(picList1[im1].src!=null){
+                            picStr=picStr+","+picList1[im1].src;
+                        }
+                    }
+                    var picList2 = editor.$textElem.children().children()
+                    for(var im2=0;im2<picList2.length;im2++){
+                        if(picList2[im2].src!=null){
+                            picStr=picStr+","+picList2[im2].src;
+                        }
+                    }
+                    //拼接结束
+
                     $.ajax({
-                        url: "http://localhost:8080/maven2-ssm/comment/insertComment.action",
+                        url: "http://47.93.49.124:81/tasty/comment/insertComment.action",
                         type: "post",
                         contentType: 'application/json;charset=UTF-8',
-                        data: '{"c_words":"' + editor.txt.text() + '","pic_url":"'+''+$('#imgUrl').val()+'"}',
+                        data: '{"c_words":"' + editor.txt.text() + '","pic_url":"'+picStr+'"}',
                         dataType: 'json',
 
                         success: function (data) {
+
+                            //将icomment的值设置为1
+                            $("#icomment").val("1");
 
                             alert("评论成功")
                             editor.txt.clear()         //清楚富文本内的文字
@@ -52,7 +77,7 @@ function signInAjax(editor){
                             $('.commentList').children().remove()
                             for (var i = 0; i < data.length; i++) {
                                 //这里添加评论的信息
-                                $('.commentList').append('<div id="cc' + data[i].c_id + '"><li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                $('.commentList').append('<div id="cc' + data[i].c_id + '"><li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+data[i].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                     '<div class="comment-main">' +
                                     '<header class="comment-header">' +
                                     '<div class="comment-meta"><a class="comment-author" href="#">' + data[i].user.name + '</a> 评论于' +
@@ -82,7 +107,7 @@ function signInAjax(editor){
                                 $('#reply'+data[i].c_id).click(data[i],function (event) {
                                     //ajax获取回复的信息
                                     $.ajax({
-                                        url: "http://localhost:8080/maven2-ssm/comment/getReplyByPage.action",
+                                        url: "http://47.93.49.124:81/tasty/comment/getReplyByPage.action",
                                         type: "post",
                                         contentType: 'application/json;charset=UTF-8',
                                         data:'{"pageNum":1,"c_id":"'+event.data.c_id+'"}',      //默认第一页
@@ -94,7 +119,7 @@ function signInAjax(editor){
                                                 '<ul class="commentList" id="huifuList'+dd[0].c_id+'"> </ul> </div>')
                                             for(var r=0;r<dd.length;r++){
                                                 //往上面新添加的节点append回复信息
-                                                $('#huifuList'+dd[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                $('#huifuList'+dd[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+dd[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                     '<div class="comment-main"> ' +
                                                     '<header class="comment-header"> ' +
                                                     '<div class="comment-meta"><a class="comment-author" href="#">'+dd[r].user.name+'</a> 评论于 ' +
@@ -120,7 +145,7 @@ function signInAjax(editor){
                                                 $('#replyFenYeBtn' + dd[0].c_id+r2).click(pack,function (pack) {
 
                                                     $.ajax({
-                                                        url: "http://localhost:8080/maven2-ssm/comment/getReplyByPage.action",
+                                                        url: "http://47.93.49.124:81/tasty/comment/getReplyByPage.action",
                                                         type: "post",
                                                         contentType: 'application/json;charset=UTF-8',
                                                         data: '{"pageNum":'+pack.data.pageNum+',"c_id":"'+pack.data.c_id+'"}',
@@ -135,7 +160,7 @@ function signInAjax(editor){
                                                                 '<ul class="commentList" id="huifuList'+d1[0].c_id+'"> </ul> </div>')
                                                             for(var r=0;r<d1.length;r++) {
                                                                 //往上面新添加的节点append回复信息
-                                                                $('#huifuList' + d1[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                                $('#huifuList' + d1[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+d1[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                                     '<div class="comment-main"> ' +
                                                                     '<header class="comment-header"> ' +
                                                                     '<div class="comment-meta"><a class="comment-author" href="#">' + d1[r].user.name + '</a> 评论于 ' +
@@ -179,7 +204,7 @@ function signInAjax(editor){
                                         var c_id = event.data.c_id
 
                                         $.ajax({
-                                            url: "http://localhost:8080/maven2-ssm/comment/insertReply.action",
+                                            url: "http://47.93.49.124:81/tasty/comment/insertReply.action",
                                             type: "post",
                                             contentType: 'application/json;charset=UTF-8',
                                             data: '{"r_words":"' + r_words + '",' +
@@ -196,7 +221,7 @@ function signInAjax(editor){
                                                 for(var r=0;r<data.length;r++){
 
                                                     //往上面新添加的节点append回复信息
-                                                    $('#huifuList'+data[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                    $('#huifuList'+data[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+data[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                         '<div class="comment-main"> ' +
                                                         '<header class="comment-header"> ' +
                                                         '<div class="comment-meta"><a class="comment-author" href="#">'+data[r].user.name+'</a> 评论于 ' +
@@ -210,19 +235,17 @@ function signInAjax(editor){
                                                         '</li>')
                                                 }
                                                 //发表完后，如果pages为1的时候
-                                                if(data[0].pageBean.pages==1){
-
-                                                    var p = {"pageNum":1,"c_id":data[0].c_id}
-                                                    $('#huifuBtnLi'+data[0].c_id).append('<li><button type="button" class="btn btn-lg btn-link btn-block" id="replyFenYeBtn1' +data[0].c_id+ '>' + 1 + '</button></li>') //添加新按钮
-
+                                                if(data[0].pageBean.pages==1&&$('#huifuBtnLi'+data[0].c_id).children().length==0){
+                                                    $('#huifuList'+data[0].c_id).after(' <div class="row" id="rowHuiFu"><ul id="huifuBtnLi'+data[0].c_id+'"></ul></div>');
+                                                    $('#huifuBtnLi'+data[0].c_id).append('<li><button type="button" class="btn btn-lg btn-link btn-block" id="replyFenYeBtn1' +data[0].c_id+ '">' + 1 + '</button></li>') //添加新按钮
                                                     //为新的按钮添加点击事件
-                                                    $('#replyFenYeBtn1'+data[0].c_id).click(p,function (p) {
+                                                    $('#replyFenYeBtn1'+data[0].c_id).click(data[0].c_id,function (p) {
                                                         $.ajax({
-                                                            url: "http://localhost:8080/maven2-ssm/comment/getReplyByPage.action",
+                                                            url: "http://47.93.49.124:81/tasty/comment/getReplyByPage.action",
                                                             type: "post",
                                                             contentType: 'application/json;charset=UTF-8',
-                                                            data: '{"pageNum":"' + p.data.pageNum + '",' +
-                                                            '"c_id":"' + p.data.c_id + '"}',
+                                                            data: '{"pageNum":"' + 1 + '",' +
+                                                            '"c_id":"' + p.data + '"}',
                                                             dataType: 'json',
                                                             success: function (d3) {
 
@@ -233,7 +256,7 @@ function signInAjax(editor){
                                                                     '<ul class="commentList" id="huifuList'+d3[0].c_id+'"> </ul> </div>')
                                                                 for(var r=0;r<d3.length;r++) {
                                                                     //往上面新添加的节点append回复信息
-                                                                    $('#huifuList' + d3[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                                    $('#huifuList' + d3[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+d3[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                                         '<div class="comment-main"> ' +
                                                                         '<header class="comment-header"> ' +
                                                                         '<div class="comment-meta"><a class="comment-author" href="#">' + d3[r].user.name + '</a> 评论于 ' +
@@ -263,7 +286,7 @@ function signInAjax(editor){
                                                     //为新的按钮添加点击事件
                                                     $('#replyFenYeBtn'+data[0].c_id+newL).click(pack,function (pack) {
                                                         $.ajax({
-                                                            url: "http://localhost:8080/maven2-ssm/comment/getReplyByPage.action",
+                                                            url: "http://47.93.49.124:81/tasty/comment/getReplyByPage.action",
                                                             type: "post",
                                                             contentType: 'application/json;charset=UTF-8',
                                                             data: '{"pageNum":"' + pack.data.pageNum + '",' +
@@ -277,7 +300,7 @@ function signInAjax(editor){
                                                                     '<ul class="commentList" id="huifuList'+d3[0].c_id+'"> </ul> </div>')
                                                                 for(var r=0;r<d3.length;r++) {
                                                                     //往上面新添加的节点append回复信息
-                                                                    $('#huifuList' + d3[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                                    $('#huifuList' + d3[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+d3[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                                         '<div class="comment-main"> ' +
                                                                         '<header class="comment-header"> ' +
                                                                         '<div class="comment-meta"><a class="comment-author" href="#">' + d3[r].user.name + '</a> 评论于 ' +
@@ -351,7 +374,7 @@ function signInAjax(editor){
 
                                     //获取对应页数的数据
                                     $.ajax({
-                                        url: "http://localhost:8080/maven2-ssm/comment/getCommentByPage.action",
+                                        url: "http://47.93.49.124:81/tasty/comment/getCommentByPage.action",
                                         type: "post",
                                         contentType: 'application/json;charset=UTF-8',
                                         data: '{"pageNum":' + event.data + '}',
@@ -361,7 +384,7 @@ function signInAjax(editor){
                                             $('.commentList').children().remove()
                                             for(var i=0;i<data.length;i++){
                                                 //这里添加评论的信息
-                                                $('.commentList').append('<div id="cc'+data[i].c_id+'"><li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                $('.commentList').append('<div id="cc'+data[i].c_id+'"><li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+data[i].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                     '<div class="comment-main">' +
                                                     '<header class="comment-header">' +
                                                     '<div class="comment-meta"><a class="comment-author" href="#">'+data[i].user.name+'</a> 评论于' +
@@ -390,7 +413,7 @@ function signInAjax(editor){
                                                 $('#reply'+data[i].c_id).click(data[i],function (event) {
                                                     //ajax获取回复的信息
                                                     $.ajax({
-                                                        url: "http://localhost:8080/maven2-ssm/comment/getReplyByPage.action",
+                                                        url: "http://47.93.49.124:81/tasty/comment/getReplyByPage.action",
                                                         type: "post",
                                                         contentType: 'application/json;charset=UTF-8',
                                                         data:'{"pageNum":1,"c_id":"'+event.data.c_id+'"}',      //默认第一页
@@ -402,7 +425,7 @@ function signInAjax(editor){
                                                                 '<ul class="commentList" id="huifuList'+dd[0].c_id+'"> </ul> </div>')
                                                             for(var r=0;r<dd.length;r++){
                                                                 //往上面新添加的节点append回复信息
-                                                                $('#huifuList'+dd[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                                $('#huifuList'+dd[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+dd[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                                     '<div class="comment-main"> ' +
                                                                     '<header class="comment-header"> ' +
                                                                     '<div class="comment-meta"><a class="comment-author" href="#">'+dd[r].user.name+'</a> 评论于 ' +
@@ -428,7 +451,7 @@ function signInAjax(editor){
                                                                 $('#replyFenYeBtn' + dd[0].c_id+r2).click(pack,function (pack) {
 
                                                                     $.ajax({
-                                                                        url: "http://localhost:8080/maven2-ssm/comment/getReplyByPage.action",
+                                                                        url: "http://47.93.49.124:81/tasty/comment/getReplyByPage.action",
                                                                         type: "post",
                                                                         contentType: 'application/json;charset=UTF-8',
                                                                         data: '{"pageNum":'+pack.data.pageNum+',"c_id":"'+pack.data.c_id+'"}',
@@ -443,7 +466,7 @@ function signInAjax(editor){
                                                                                 '<ul class="commentList" id="huifuList'+d1[0].c_id+'"> </ul> </div>')
                                                                             for(var r=0;r<d1.length;r++) {
                                                                                 //往上面新添加的节点append回复信息
-                                                                                $('#huifuList' + d1[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                                                $('#huifuList' + d1[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+d1[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                                                     '<div class="comment-main"> ' +
                                                                                     '<header class="comment-header"> ' +
                                                                                     '<div class="comment-meta"><a class="comment-author" href="#">' + d1[r].user.name + '</a> 评论于 ' +
@@ -487,7 +510,7 @@ function signInAjax(editor){
                                                         var c_id = event.data.c_id
 
                                                         $.ajax({
-                                                            url: "http://localhost:8080/maven2-ssm/comment/insertReply.action",
+                                                            url: "http://47.93.49.124:81/tasty/comment/insertReply.action",
                                                             type: "post",
                                                             contentType: 'application/json;charset=UTF-8',
                                                             data: '{"r_words":"' + r_words + '",' +
@@ -504,7 +527,7 @@ function signInAjax(editor){
                                                                 for(var r=0;r<data.length;r++){
 
                                                                     //往上面新添加的节点append回复信息
-                                                                    $('#huifuList'+data[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                                    $('#huifuList'+data[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+data[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                                         '<div class="comment-main"> ' +
                                                                         '<header class="comment-header"> ' +
                                                                         '<div class="comment-meta"><a class="comment-author" href="#">'+data[r].user.name+'</a> 评论于 ' +
@@ -519,22 +542,20 @@ function signInAjax(editor){
                                                                 }
 
                                                                 //发表完后，如果pages为1的时候
-                                                                if(data[0].pageBean.pages==1){
-                                                                     $('#huifuList'+data[0].c_id).after(' <div class="row" id="rowHuiFu"><ul id="huifuBtnLi'+data[0].c_id+'"></ul></div>')
-                                                                    var p = {"pageNum":1,"c_id":data[0].c_id}
-                                                                    $('#huifuBtnLi'+data[0].c_id).append('<li><button type="button" class="btn btn-lg btn-link btn-block" id="replyFenYeBtn1' +data[0].c_id+ '>' + 1 + '</button></li>') //添加新按钮
-
-                                                                    
+                                                                if(data[0].pageBean.pages==1&&$('#huifuBtnLi'+data[0].c_id).children().length==0){
+                                                                    $('#huifuList'+data[0].c_id).after(' <div class="row" id="rowHuiFu"><ul id="huifuBtnLi'+data[0].c_id+'"></ul></div>');
+                                                                    $('#huifuBtnLi'+data[0].c_id).append('<li><button type="button" class="btn btn-lg btn-link btn-block" id="replyFenYeBtn1' +data[0].c_id+ '">' + 1 + '</button></li>') //添加新按钮
                                                                     //为新的按钮添加点击事件
-                                                                    $('#replyFenYeBtn1'+data[0].c_id).click(p,function (p) {
+                                                                    $('#replyFenYeBtn1'+data[0].c_id).click(data[0].c_id,function (p) {
                                                                         $.ajax({
-                                                                            url: "http://localhost:8080/maven2-ssm/comment/getReplyByPage.action",
+                                                                            url: "http://47.93.49.124:81/tasty/comment/getReplyByPage.action",
                                                                             type: "post",
                                                                             contentType: 'application/json;charset=UTF-8',
-                                                                            data: '{"pageNum":"' + p.data.pageNum + '",' +
-                                                                            '"c_id":"' + p.data.c_id + '"}',
+                                                                            data: '{"pageNum":"' + 1 + '",' +
+                                                                            '"c_id":"' + p.data + '"}',
                                                                             dataType: 'json',
                                                                             success: function (d3) {
+
                                                                                 $('#huifuList'+d3[0].c_id).remove();//移除旧页的节点
                                                                                 //添加 回复的信息
                                                                                 //这里用主评论的id 既c_id 去标识这一列的回复内容
@@ -542,7 +563,7 @@ function signInAjax(editor){
                                                                                     '<ul class="commentList" id="huifuList'+d3[0].c_id+'"> </ul> </div>')
                                                                                 for(var r=0;r<d3.length;r++) {
                                                                                     //往上面新添加的节点append回复信息
-                                                                                    $('#huifuList' + d3[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                                                    $('#huifuList' + d3[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+d3[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                                                         '<div class="comment-main"> ' +
                                                                                         '<header class="comment-header"> ' +
                                                                                         '<div class="comment-meta"><a class="comment-author" href="#">' + d3[r].user.name + '</a> 评论于 ' +
@@ -573,7 +594,7 @@ function signInAjax(editor){
                                                                     //为新的按钮添加点击事件
                                                                     $('#replyFenYeBtn'+data[0].c_id+newL).click(pack,function (pack) {
                                                                         $.ajax({
-                                                                            url: "http://localhost:8080/maven2-ssm/comment/getReplyByPage.action",
+                                                                            url: "http://47.93.49.124:81/tasty/comment/getReplyByPage.action",
                                                                             type: "post",
                                                                             contentType: 'application/json;charset=UTF-8',
                                                                             data: '{"pageNum":"' + pack.data.pageNum + '",' +
@@ -587,7 +608,7 @@ function signInAjax(editor){
                                                                                     '<ul class="commentList" id="huifuList'+d3[0].c_id+'"> </ul> </div>')
                                                                                 for(var r=0;r<d3.length;r++) {
                                                                                     //往上面新添加的节点append回复信息
-                                                                                    $('#huifuList' + d3[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                                                    $('#huifuList' + d3[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+d3[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                                                         '<div class="comment-main"> ' +
                                                                                         '<header class="comment-header"> ' +
                                                                                         '<div class="comment-meta"><a class="comment-author" href="#">' + d3[r].user.name + '</a> 评论于 ' +
@@ -649,6 +670,20 @@ function signInAjax(editor){
                                         }
                                     })
                                 })
+
+
+                                //添加新消息提示点击事件
+                                //移除旧的
+                                $("#newCommentTips").remove()
+                                //重新添加
+                                $(".list-group").before('<button class="btn btn-large btn-block" type="button" id="newCommentTips" style="color: black;" onclick="newCommentClick()">有新消息 </button>')
+                                $("#newCommentTips").hide()
+                                $("#newCommentTips").click(function(){
+
+                                    $('#fenyeBtn'+data[0].pageBean.pages).click()
+                                    $("#newCommentTips").hide()
+                                })
+                                //添加新消息提示点击事件结束
 
 
 

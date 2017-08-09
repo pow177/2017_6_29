@@ -34,6 +34,7 @@ public class CommentServiceImpl implements CommentService{
 
         //分页插件
         PageHelper.startPage(pageNum, 5);        //查询最后一页的数据
+        PageHelper.orderBy("c_id");
         List<Comment> commentList =  commentMapper.getCommentAndUserByPage();
 
         //自定义的一个page
@@ -85,6 +86,7 @@ public class CommentServiceImpl implements CommentService{
 
         //分页插件
         PageHelper.startPage(pb.getPageNum(), 5);        //第几页，几条
+        PageHelper.orderBy("c_id");
         List<Comment> commentList =  commentMapper.getCommentAndUserByPage();
 
         int count = commentMapper.selectCount(new Comment());    //查询所有评论的记录数
@@ -129,4 +131,7 @@ public class CommentServiceImpl implements CommentService{
         return message;
     }
 
+    public int getAllCounts(){
+      return  commentMapper.selectCount(new Comment());
+    }
 }

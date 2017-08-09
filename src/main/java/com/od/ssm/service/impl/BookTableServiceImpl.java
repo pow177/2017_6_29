@@ -48,4 +48,8 @@ public class BookTableServiceImpl implements BookTableService{
     public void insertListBookeTable(List<BookTable> bookTableList){
         bookTableMapper.insertListBookTables(bookTableList);
     }
+
+    public List<BookTable> getAllBookTables(){
+       return  bookTableMapper.select(new BookTable());
+    }
 }

@@ -211,10 +211,10 @@
                     },
 
                     submitHandler: function(form) {//验证通过之后回调
-                        alert("submit")
+
                         //<!-- ajax异步提交表单 -->
                         $.ajax({
-                            url: "http://localhost:8080/maven2-ssm/insertUser.action",
+                            url: "http://47.93.49.124:81/tasty/insertUser.action",
                             type: "post",
                             contentType: 'application/json;charset=UTF-8',
                             data: '{"bookPhoneNumber":"'+$('#phoneNumber').val()+'","bookName":"'+$('#name').val()+'' +

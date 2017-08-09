@@ -43,6 +43,7 @@ public class ReplyServiceImpl implements ReplyService {
 
         //pageHelper查最后一页的记录
         PageHelper.startPage(pages, 5);        //查询最后一页的数据
+        PageHelper.orderBy("r_id");
       //取得数据集合
        List<Reply> replyList = replyMapper.selectReplyAndUser(reply.getC_id());
        //这里因为reply 跟 comment是 多对一的关系，所以取其中一个拿到comment再获取comment对应的user的u_id即可
@@ -82,6 +83,7 @@ public class ReplyServiceImpl implements ReplyService {
     public String getReplyByPage(PageBean pageBean){
                 //pageNum从前端传过来的数据
         PageHelper.startPage(pageBean.getPageNum(), 5);
+        PageHelper.orderBy("r_id");
         //1.获得查询数据
         List<Reply> replyList = replyMapper.selectReplyAndUser(pageBean.getC_id());
 

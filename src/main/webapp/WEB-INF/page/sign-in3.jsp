@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -92,7 +92,7 @@
                     <input type="password" class="form-control" name="password" id="password" placeholder="密码" autocomplete="off" >
                 </div>
                 <div class="form-group">
-                    <label for="remember"><input type="checkbox" id="remember">记住密码</label>
+                    <label for="remember"><input type="checkbox" id="remember" name="remember" value="remember">记住密码</label>
                 </div>
                 <div class="form-group">
                     <p>还没注册？<a href="${pageContext.request.contextPath}/page/sign-up3.action">注册</a> | <a href="${pageContext.request.contextPath}/page/forgot3.action">忘记密码</a></p>

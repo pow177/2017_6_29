@@ -13,6 +13,7 @@
         <id column="c_u_id" property="u_id"/>
         <result column="name" property="name"/>
         <result column="phone_number" property="phoneNumber"/>
+        <result column="img_url" property="imgUrl"/>
     </association>
     </resultMap>
 

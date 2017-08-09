@@ -39,7 +39,7 @@
 			}
 			.myZoom{
 				zoom: 0.7;}
-			.editor{position:relative;border:solid 1px #eee;width:500px;height:300px}
+			#editor p{color: black}
 			.login{position:absolute;z-index:9999;line-height:30px;top:50%;margin-top:-15px;text-align:center;width:100%;left:0px}
 			.mask{width:100%;height:100%;background-color:#eee;z-index:100;position:absolute;top:0px;left:0px;opacity:.2;filter:alpha(opacity=20)}
 		.myClass{
@@ -210,97 +210,30 @@
 	</div>
 
 
-	<div id="fh5co-featured-testimony" class="fh5co-section">
+	<div id="fh5co-featured-testimony" class="fh5co-section2">
 		<div class="container">
 			<div class="row">
+
+
 				<div class="jumbotron">
+					<input type="hidden" id="commentNum" /><!--记录评论条数 -->
+					<input type="hidden" id="icomment" value="0"/> <!--判断新评论是否当前用户发出 -->
 					<div class="list-group">
 					<ul class="commentList">
 
 					</ul>
 					</div>
-
-
-
-<!------- -->
-						<!--<li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a>-->
-						<!--<div class="comment-main">-->
-							<!--<header class="comment-header">-->
-								<!--<div class="comment-meta"><a class="comment-author" href="#">辉哥</a> 评论于-->
-									<!--<time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time>-->
-								<!--</div>-->
-							<!--</header>-->
-							<!--<div class="comment-body">-->
-								<!--<p style="color: black"><a href="#">@某人</a> 你是猴子派来的救兵吗？</p>-->
-							<!--</div>-->
-
-						<!--</div>-->
-					<!--</li>-->
-						<!--<li class="item cl" style="text-align: right"> <a href="#">回复</a></li>-->
-
-					<!-- 子ul -->
-                    <!--<div class="myZoom">-->
-                    <!--<ul class="commentList" id="huifuList">-->
-					<!--</ul>-->
-					<!--</div>-->
-                        <!--<li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a>-->
-                            <!--<div class="comment-main">-->
-                                <!--<header class="comment-header">-->
-                                    <!--<div class="comment-meta"><a class="comment-author" href="#">辉哥</a> 评论于-->
-                                        <!--<time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time>-->
-                                    <!--</div>-->
-                                <!--</header>-->
-                                <!--<div class="comment-body">-->
-                                    <!--<p style="color: black"><a href="#">@某人</a> 你是猴子派来的救兵吗？</p>-->
-                                <!--</div>-->
-
-                            <!--</div>-->
-                        <!--</li>-->
-							<!--<li class="item cl" style="text-align: right"> <a href="#">回复</a></li>-->
-
-							<!--<li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a>-->
-								<!--<div class="comment-main">-->
-									<!--<header class="comment-header">-->
-										<!--<div class="comment-meta"><a class="comment-author" href="#">辉哥</a> 评论于-->
-											<!--<time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time>-->
-										<!--</div>-->
-									<!--</header>-->
-									<!--<div class="comment-body">-->
-										<!--<p style="color: black"><a href="#">@某人</a> 你是猴子派来的救兵吗？</p>-->
-									<!--</div>-->
-
-								<!--</div>-->
-							<!--</li>-->
-							<!--<li class="item cl" style="text-align: right"> <a href="#">回复</a></li>-->
-
-							<!--<li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a>-->
-								<!--<div class="comment-main">-->
-									<!--<header class="comment-header">-->
-										<!--<div class="comment-meta"><a class="comment-author" href="#">辉哥</a> 评论于-->
-											<!--<time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time>-->
-										<!--</div>-->
-									<!--</header>-->
-									<!--<div class="comment-body">-->
-										<!--<p style="color: black"><a href="#">@某人</a> 你是猴子派来的救兵吗？</p>-->
-									<!--</div>-->
-
-								<!--</div>-->
-							<!--</li>-->
-							<!--<li class="item cl" style="text-align: right"> <a href="#">回复</a></li>-->
-						<!--</ul>-->
-						<!--</div>-->
-					<!--</ul>-->
-
-
-
 						<!--异步获取评论数据 -->
 
 
 <!-- -->		<!--富文本框 -->
 
-		<div style="width:80%;" class="center-block" >
-		<div id="editor" class="col-md-12" >
-        <div id="login"></div>
+		<div style="width:80%;color: black" class="center-block" >
+
+		<div id="editor" class="col-md-12" style="color: black">
+
+			<p style="color: silver" id="lxpl">留下你的评论吧~</p>
+
 		</div>
 
 		<div class="row">
@@ -319,7 +252,7 @@
 			<div class="row copyright">
 				<div class="col-md-12 text-center">
 					<p>
-						<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></small>
+
 					</p>
 
 				</div>
@@ -354,7 +287,19 @@
 		<script type="text/javascript">
             $(window).load(function() {
                 commentAndReply()
+
+				$.ajax({
+                    url: "http://47.93.49.124:81/tasty/comment/getAllCounts.action",
+                    type: "post",
+                    contentType: 'application/json;charset=UTF-8',
+                    data: '{"date":' + new Date() + '}',      //默认第一页
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#commentNum").val(data.message);
+                    }
+                })
             })
+
 		</script>
 
 	<!--富文本-->
@@ -363,17 +308,16 @@
             //添加富文本
             var E = window.wangEditor;
             var editor = new E('#editor');
-            editor.customConfig.uploadImgServer = 'http://localhost:8080/maven2-ssm/comment/addPic.action'; //服务器接口
+            editor.customConfig.uploadImgServer = 'http://47.93.49.124:81/tasty/comment/addPic.action'; //服务器接口
             editor.customConfig.menus = [
                 'emoticon',  // 表情
                 'image',  // 插入图片
-                'undo',  // 撤销
-                'redo'  // 重复
+
             ]
             editor.customConfig.showLinkImg = false        //禁用网络图片插入
             editor.customConfig.uploadImgHooks = {
 
-                success: function (xhr, editor, result) { //图片上传成功回调函数
+                success: function (xhr, editor, result) { //图片上传成功回调函数         *这个方法上传图片imgUrl方法没用这个了
                     if($('#imgUrl').length<=0) { //判断是不是不存在在该节点
                         $('#picUrl').append('<input type="hidden" value="' + result.data[0] + '" id="imgUrl">')
                     }else{
@@ -388,34 +332,38 @@
             editor.create();
             //富文本创建结束
 
+
+            editor.$textElem.attr('contenteditable', false);
+
+            $(editor.$textElem).click(function(){
+                $("#lxpl").remove()
+            })
             addValidate(editor)   //添加登录校验插件
             addLogo(editor)          //添加 "user" Logo 跟评论按钮
+
+//            $("#buu").click(function(){
+//                alert("yyy")
+////                alert($(p).html())
+////
+////                alert("xin1")
+//                alert(editor.$textElem.children().children().length)
+//                alert(editor.$textElem.children().html())
+//                var list = $("#loginImg").siblings()
+//                for(var i=0;i<list.length;i++){
+//                    if(list[i].src!=null){
+//                        alert(list[i].src)
+//                    }
+//                }
+//            })
         })
-//
-
-//                document.getElementById('modal-529194').addEventListener('click', function () {
-//                    // 读取 text
-////                    $("#hid_username").val(editor.txt.text());
-//                    alert(editor.txt.text())
-//                    return false
-//                }, false)
 
 
-//
-//        document.getElementById('hadSign-up').addEventListener('click', function () {
-//            // 读取 text
-//            alert(editor.txt.text())
-//        }, false)
-//
 
-//                document.getElementById('btn3').addEventListener('click', function () {
-//                    // 读取 text
-//                    $("#hid_username").val(editor.txt.text());
-//                    alert(editor.txt.text())
-//                    return false
-//                }, false)
 	</script>
 
+	<script type="text/javascript">
+
+	</script>
 	<script>
 		Zoomerang
       .config({
@@ -453,7 +401,7 @@
 							</div>
 
 								<div class="form-group">
-									<label for="remember" style="color:black;"><input type="checkbox"  id="remember" >记住密码</label>
+									<label for="remember" style="color:black;"><input type="checkbox" name="remember" id="remember" value="remember">记住密码</label>
 							</div>
 							<div class="form-group">
 								<p>还没注册？<a href="page/sign-up3.action">注册</a> | <a href="page/forgot3.action">忘记密码</a></p>
@@ -478,18 +426,18 @@
 	<script src="././resources/page2/js/validate-methods.js"></script>
 	<script src="././resources/page2/js/sign-inAjax.js"></script>
 		<script src="././resources/page2/js/addValidate.js"></script>
-	<script type="text/javascript">
-        $(window).load(function() {
 
-
-
-
-        })
-	</script>
 	<!-- end -->
 	<script type="text/javascript" src="././resources/page2/js/addLogo.js"></script>
 	<script type="text/javascript" src="././resources/page2/js/signOut.js"></script>
 
+	<script type="text/javascript">
+//        $("#lxplb").click(function(){
+//            alert("c1")
+//            $("#lxplb").hide()
+//		})
+
+	</script>
 	</body>
 </html>
 

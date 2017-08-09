@@ -1,5 +1,6 @@
 package com.od.ssm.util;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -181,28 +182,49 @@ public class ReadWriteExcelFile
         }
 
 
-    public static void writeXLSXFile(HttpServletResponse response) throws IOException
+    public void writeXLSXFile(HttpServletResponse response,List<BookTable> bookTableList) throws IOException
     {
-
-        String excelFileName = "D:/zuixinE.xlsx";// name of excel file
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+        String dateStr = formatter.format(date);
+        String excelFileName = "/root/excelsTem/"+dateStr+".xlsx";;// name of excel file
 
         String sheetName = "Sheet1";// name of sheet
 
         XSSFWorkbook wb = new XSSFWorkbook();
         XSSFSheet sheet = wb.createSheet(sheetName);
+// 第一行设置
+        XSSFRow row1 =   sheet.createRow(0);
+        XSSFCell cell1 = row1.createCell(0);
+        cell1.setCellValue("姓名");
+        XSSFCell cell2 = row1.createCell(1);
+        cell2.setCellValue("手机号码");
+        XSSFCell cell3 = row1.createCell(2);
+        cell3.setCellValue("用餐人数");
+        XSSFCell cell4 = row1.createCell(3);
+        cell4.setCellValue("用餐时间");
 
         // iterating r number of rows
-        for (int r = 0; r < 5; r++)
-        {
+        int r = 1;
+        for (BookTable bookTable:bookTableList){
+
             XSSFRow row = sheet.createRow(r);
-
+            r++;
             // iterating c number of columns
-            for (int c = 0; c < 5; c++)
-            {
-                XSSFCell cell = row.createCell(c);
+        //第一格
+                XSSFCell cel1 = row.createCell(0);
+                cel1.setCellValue(bookTable.getBookName());
+            //第二格
+                XSSFCell cel2 = row.createCell(1);
+                cel2.setCellValue(bookTable.getBookPhoneNumber());
+            //第三格
+                XSSFCell cel3 = row.createCell(2);
+                cel3.setCellValue(bookTable.getBookPeopleNumber());
+            //第四格
+                XSSFCell cel4 = row.createCell(3);
+                cel4.setCellValue(bookTable.getBookTime());
 
-                cell.setCellValue("Cell " + r + " " + c);
-            }
+
         }
 
         FileOutputStream fileOut = new FileOutputStream(excelFileName);
@@ -232,14 +254,14 @@ public class ReadWriteExcelFile
 		response.addHeader("Content-Length", "" + file.length());
 		OutputStream toClient = new BufferedOutputStream(
 				response.getOutputStream());
-		response.setContentType("application/vnd.ms-excel;charset=gb2312");
+		response.setContentType("multipart/form-data");
 		toClient.write(buffer);
 		toClient.flush();
 		toClient.close();
 	}catch(IOException ex) {
 		ex.printStackTrace();
 	}
-System.out.println("测试一下");
+
 
     }
 

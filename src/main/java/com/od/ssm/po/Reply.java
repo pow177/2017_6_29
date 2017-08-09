@@ -21,7 +21,7 @@ public class Reply {
     private Integer r_u_id;                     //外键关联user
     @Column(name="r_c_id")
     private Integer c_id; //外键关联 comment
-
+    @Column(name="comment")
     private Comment comment;
 
     private String r_date;

@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * Created by 黄冠莳 on 2017/7/10.
  */
-@Table(name="BookTable")
+@Table(name="bookTable")
 public class BookTable {
     @Id
     private Integer id;

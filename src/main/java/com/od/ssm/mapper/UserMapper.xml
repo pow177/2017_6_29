@@ -7,6 +7,9 @@
      <result column="password" property="password" jdbcType="VARCHAR" />
      <result column="name" property="name" jdbcType="VARCHAR" />
      <result column="mood_message" property="moodMessage" jdbcType="VARCHAR" />
+     <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+     <result column="email" property="email" jdbcType="VARCHAR" />
+     <result column="cookie_key" property="cookieKey" jdbcType="VARCHAR" />
   </resultMap>
 
 
@@ -14,5 +17,11 @@
     SELECT * FROM user  WHERE phone_number=#{phoneNumber} AND password=#{password}
 </select>
 
+    <insert id="insertAndGetKey" parameterType="com.od.ssm.po.User">
+        <selectKey resultType="java.lang.Integer" keyProperty="u_id" order="AFTER">
+            select @@IDENTITY as u_id
+        </selectKey>
+        INSERT INTO user(phone_number,password,name,mood_message,img_url,email) VALUE (#{phoneNumber},#{password},#{name},#{moodMessage},#{imgUrl},#{email})
+    </insert>
 
   </mapper>

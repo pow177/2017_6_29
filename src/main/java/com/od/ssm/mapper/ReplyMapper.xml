@@ -12,6 +12,7 @@
         <association property="user" javaType="com.od.ssm.po.User">
             <id property="u_id" column="r_u_id"/>
             <result property="name" column="name"/>
+            <result column="img_url" property="imgUrl"/>
         </association>
 
         <association property="comment" javaType="com.od.ssm.po.Comment">
@@ -30,7 +31,7 @@
 </insert>
 
     <select id="selectReplyAndUser" parameterType="java.lang.Integer" resultMap="replyAndUserMap">
-          select user.name,reply.*,comment.* from reply INNER JOIN  user ON reply.r_u_id=user.u_id  LEFT JOIN comment ON reply.r_c_id=comment.c_id WHERE reply.r_c_id=#{c_id}
+          select user.name,user.img_url,reply.*,comment.* from reply INNER JOIN  user ON reply.r_u_id=user.u_id  LEFT JOIN comment ON reply.r_c_id=comment.c_id WHERE reply.r_c_id=#{c_id}
 
     </select>
 </mapper>

@@ -22,7 +22,7 @@
 
 	<!--validator，校验器注入到处理器适配器中。conversion-service是转换器 -->
 	<mvc:annotation-driven validator="validator"></mvc:annotation-driven>
-
+	<mvc:default-servlet-handler />
 	<!--<mvc:resources location="/" mapping="/**/*.html"/>或者<mvc:default-servlet-handler />-->
 	<!--只拦截*.action,所以不会拦截到静态文件所以
 	不配静态资源解析 -->

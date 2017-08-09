@@ -72,7 +72,7 @@
           <element id="library" level="project" name="Maven: javax.validation:validation-api:1.0.0.GA" />
           <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.1.0.CR2" />
           <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.3.2" />
-          <element id="library" level="project" name="Maven: com.github.pagehelper:pagehelper:3.7.5" />
+          <element id="library" level="project" name="Maven: com.github.pagehelper:pagehelper:4.0.0" />
           <element id="library" level="project" name="Maven: com.github.jsqlparser:jsqlparser:0.9.1" />
         </element>
       </element>

@@ -6,8 +6,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
 
+import com.od.ssm.controller.validation.ValidGroup1;
+import com.od.ssm.controller.validation.ValidGroup2;
 import org.hibernate.validator.constraints.Length;
 
+import java.sql.Timestamp;
 
 
 @Table(name = "user")
@@ -32,6 +35,22 @@ public class User {
     @Length(max = 255,message="留言过长")
     private String moodMessage;
 
+    @Column(name="img_url")
+    @Pattern( regexp="(jpg$|jpeg$|png$)",message="图片格式有误")  //"jpg|jpeg|png|"   $结尾 = 类似*jpg的格式    如果只写 jpg  那么jpg也能匹配到
+    private String imgUrl;
+
+    @Column(name="email")
+    @Pattern(regexp = "\\w*@\\w*\\.\\D*",message = "邮箱格式有误")
+    private String email;
+
+    @Column(name="validata_code")
+    private String validataCode;
+
+    @Column(name="registe_date")
+    private Timestamp registeDate;
+
+    @Column(name="cookie_key")
+    private String cookieKey;
     //get and set
 
 
@@ -72,5 +91,46 @@ public class User {
 
     public void setU_id(Integer u_id) {
         this.u_id = u_id;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getValidataCode() {
+        return validataCode;
+    }
+
+    public void setValidataCode(String validataCode) {
+        this.validataCode = validataCode;
+    }
+
+
+    public Timestamp getRegisteDate() {
+        return registeDate;
+    }
+
+    public void setRegisteDate(Timestamp registeDate) {
+        this.registeDate = registeDate;
+    }
+
+    public String getCookieKey() {
+        return cookieKey;
+    }
+
+    public void setCookieKey(String cookieKey) {
+        this.cookieKey = cookieKey;
     }
 }

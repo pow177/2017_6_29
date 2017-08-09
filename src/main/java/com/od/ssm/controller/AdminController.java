@@ -51,7 +51,6 @@ private BookTableService bookTableService;
        String message  =  adminService.validateMessage(admin);
        //成功
         if(message.equals("success")){
-            request.getSession().setAttribute("adminTor",admin);
             return "redirect:/page/table1.action";      //登录成功进入管理页面
         }
         //失败
@@ -61,8 +60,9 @@ private BookTableService bookTableService;
     }
 
     @RequestMapping("/signOut")
-    public String signOut(){
-return null;
+    public String signOut(HttpServletRequest request){
+        request.getSession().removeAttribute("admitKey");
+        return "redirect:/gallery.html";
     }
 
 
@@ -107,6 +107,7 @@ return null;
 
     @RequestMapping("/readExcel")
     public String readExcel(MultipartFile excelFile, RedirectAttributes redirectAttributes) throws Exception{
+        System.out.println("MultipartFile:  "+excelFile!=null);
         try {
             if (excelFile != null) {
                 InputStream inputStream = excelFile.getInputStream();
@@ -124,10 +125,15 @@ return null;
     }
 
     @RequestMapping("/writeExcel")
+
     public String writeExcel(HttpServletResponse response) throws Exception{
+       List<BookTable> bookTableList = bookTableService.getAllBookTables();
+
         ReadWriteExcelFile rwef = new ReadWriteExcelFile();
-        rwef.writeXLSXFile(response);
-        return "";
+        //使用封装好的方法完成导出
+        rwef.writeXLSXFile(response,bookTableList);
+
+        return StringToJson.strToJson("success");
 
     }
 

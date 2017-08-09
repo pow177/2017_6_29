@@ -11,7 +11,7 @@
 
 
     <select id="selectCountByBookNameAndPhone" resultType="int" parameterType="java.lang.String" >
-        SELECT count(*) FROM BookTable WHERE book_time=#{bookTime} AND book_phone_number=#{bookPhoneNumber}
+        SELECT count(*) FROM bookTable WHERE book_time=#{bookTime} AND book_phone_number=#{bookPhoneNumber}
     </select>
 
     <!-- 批量插入 -->

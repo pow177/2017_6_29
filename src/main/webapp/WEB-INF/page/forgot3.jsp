@@ -73,15 +73,17 @@
 
 
             <!-- Start Sign In Form -->
-            <form action="#" class="fh5co-form animate-box" data-animate-effect="fadeInRight">
+            <form id="form" action="${pageContext.request.contextPath}/getPassWordByEmail.action" class="fh5co-form animate-box" data-animate-effect="fadeInRight">
                 <h2>忘记密码</h2>
+                <input type="hidden" name="u_id" id="u_id">
                 <div class="form-group">
-                    <label for="name" class="sr-only">手机号码</label>
-                    <input type="text" class="form-control" id="name" placeholder="手机号码" autocomplete="off">
+                    <div id="message"></div>
+                    <label for="phoneNumber" class="sr-only">手机号码</label>
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="手机号码" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label for="email" class="sr-only">邮箱号码</label>
-                    <input type="email" class="form-control" id="email" placeholder="邮箱号码" autocomplete="off">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="邮箱号码" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <p><a href="sign-in3.action">登录</a> or <a href="sign-up3.action">注册</a></p>
@@ -108,6 +110,32 @@
 <!-- Main JS -->
 <script src="${pageContext.request.contextPath}/resources/page1/js/main.js"></script>
 
+<script type="text/javascript">
+   $(".btn.btn-primary").click(function(){
+    $.ajax({
+        url: "${pageContext.request.contextPath}/validPhoneNumberAndEmail.action",
+        type: "post",
+        contentType: 'application/json;charset=UTF-8',
+        data: '{"phoneNumber":"'+$("#phoneNumber").val()+'","email":"'+$("#email").val()+'"}',      //默认第一页
+        dataType: 'json',
+        success: function (data) {
+
+            if(data.message0=="success"){
+
+
+                $("#u_id").val(data.message1)
+                $("#form").submit()      //提交表单
+            }
+            if(data.message0=="fail"){
+                $("#message").append("<p style='color: red'>填写的手机号码与注册邮箱不一致</p>") //显示提示信息
+            }
+        }
+    })
+
+    return false; //取消默认行为
+
+   })
+</script>
 </body>
 </html>
 

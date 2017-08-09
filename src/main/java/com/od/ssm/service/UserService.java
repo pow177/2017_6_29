@@ -7,4 +7,9 @@ public interface UserService {
     public User validateAndGetUserSignInMessage(User user);
     public int ajaxCheackUserIfRe(User user);
     public User addUserAndGetIt(User user);
+    public void updateUser(User user);
+    public void updateMoodMessage(User user);
+    public int validPhoneNumberAndEmailAndGetId(User user);
+    public void saveValidMessage(User user);
+    public User getUserByParame(User user);
 }

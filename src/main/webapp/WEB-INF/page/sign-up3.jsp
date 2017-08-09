@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -173,7 +173,7 @@
         submitHandler: function(form) {//验证通过之后回调
 
             $.ajax({
-                url: "http://localhost:8080/maven2-ssm/checkIdCode.action",
+                url: "http://47.93.49.124:81/tasty/checkIdCode.action",
                 type: "post",
                 contentType: 'application/json;charset=UTF-8',
                 data: '{"phoneNumber":"'+$('#phoneNumber').val()+'","idCode":"'+$('#idCode').val()+'"}',

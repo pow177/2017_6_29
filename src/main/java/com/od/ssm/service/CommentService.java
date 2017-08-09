@@ -9,4 +9,5 @@ import com.od.ssm.po.Comment;
 public interface CommentService {
     public String insertCommentAndGetNewComment(Comment comment);
     public String getCommentByPage(PageBean pb);
+    public int getAllCounts();
 }

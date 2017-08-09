@@ -4,7 +4,7 @@
 function  commentAndReply() {
 
     $.ajax({
-        url: "http://localhost:8080/maven2-ssm/comment/getCommentByPage.action",
+        url: "http://47.93.49.124:81/tasty/comment/getCommentByPage.action",
         type: "post",
         contentType: 'application/json;charset=UTF-8',
         data:'{"pageNum":1}',      //默认第一页
@@ -14,7 +14,7 @@ function  commentAndReply() {
             var comment = data;
             for(var i=0;i<comment.length;i++){
                 //这里添加评论的信息
-                $('.commentList').append('<div id="cc'+data[i].c_id+'"><li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                $('.commentList').append('<div id="cc'+data[i].c_id+'"><li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+data[i].user.imgUrl+'" height="50" width="50"></i></a> ' +
                     '<div class="comment-main">' +
                     '<header class="comment-header">' +
                     '<div class="comment-meta"><a class="comment-author" href="#">'+data[i].user.name+'</a> 评论于' +
@@ -45,7 +45,7 @@ function  commentAndReply() {
                 $('#reply'+data[i].c_id).click(data[i],function (event) {
                     //ajax获取回复的信息
                     $.ajax({
-                        url: "http://localhost:8080/maven2-ssm/comment/getReplyByPage.action",
+                        url: "http://47.93.49.124:81/tasty/comment/getReplyByPage.action",
                         type: "post",
                         contentType: 'application/json;charset=UTF-8',
                         data:'{"pageNum":1,"c_id":"'+event.data.c_id+'"}',      //默认第一页
@@ -57,7 +57,7 @@ function  commentAndReply() {
                                 '<ul class="commentList" id="huifuList'+dd[0].c_id+'"> </ul> </div>')
                             for(var r=0;r<dd.length;r++){
                                 //往上面新添加的节点append回复信息
-                                $('#huifuList'+dd[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                $('#huifuList'+dd[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+dd[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                     '<div class="comment-main"> ' +
                                     '<header class="comment-header"> ' +
                                     '<div class="comment-meta"><a class="comment-author" href="#">'+dd[r].user.name+'</a> 评论于 ' +
@@ -83,7 +83,7 @@ function  commentAndReply() {
                                 $('#replyFenYeBtn' + dd[0].c_id+r2).click(pack,function (pack) {
 
                                     $.ajax({
-                                        url: "http://localhost:8080/maven2-ssm/comment/getReplyByPage.action",
+                                        url: "http://47.93.49.124:81/tasty/comment/getReplyByPage.action",
                                         type: "post",
                                         contentType: 'application/json;charset=UTF-8',
                                         data: '{"pageNum":'+pack.data.pageNum+',"c_id":"'+pack.data.c_id+'"}',
@@ -98,7 +98,7 @@ function  commentAndReply() {
                                                 '<ul class="commentList" id="huifuList'+d1[0].c_id+'"> </ul> </div>')
                                             for(var r=0;r<d1.length;r++) {
                                                 //往上面新添加的节点append回复信息
-                                                $('#huifuList' + d1[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                $('#huifuList' + d1[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+d1[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                     '<div class="comment-main"> ' +
                                                     '<header class="comment-header"> ' +
                                                     '<div class="comment-meta"><a class="comment-author" href="#">' + d1[r].user.name + '</a> 评论于 ' +
@@ -119,6 +119,7 @@ function  commentAndReply() {
                                 })
                                 //为分页按钮添加点击事件结束
                             }
+
                         }
 
 
@@ -142,7 +143,7 @@ function  commentAndReply() {
                         var c_id = event.data.c_id
 
                         $.ajax({
-                            url: "http://localhost:8080/maven2-ssm/comment/insertReply.action",
+                            url: "http://47.93.49.124:81/tasty/comment/insertReply.action",
                             type: "post",
                             contentType: 'application/json;charset=UTF-8',
                             data: '{"r_words":"' + r_words + '",' +
@@ -160,7 +161,7 @@ function  commentAndReply() {
                                 for(var r=0;r<data.length;r++){
 
                                     //往上面新添加的节点append回复信息
-                                    $('#huifuList'+data[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                    $('#huifuList'+data[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+data[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                         '<div class="comment-main"> ' +
                                         '<header class="comment-header"> ' +
                                         '<div class="comment-meta"><a class="comment-author" href="#">'+data[r].user.name+'</a> 评论于 ' +
@@ -174,19 +175,19 @@ function  commentAndReply() {
                                         '</li>')
                                 }
                                 //发表完后，如果pages为1的时候
-                                if(data[0].pageBean.pages==1){
 
-
-                                    var p = {"pageNum":1,"c_id":data[0].c_id}
-                                    $('#huifuBtnLi'+data[0].c_id).append('<li><button type="button" class="btn btn-lg btn-link btn-block" id="replyFenYeBtn1' +data[0].c_id+ '>' + 1 + '</button></li>') //添加新按钮
+                                if(data[0].pageBean.pages==1&&$('#huifuBtnLi'+data[0].c_id).children().length==0){
+                                    $('#huifuList'+data[0].c_id).after(' <div class="row" id="rowHuiFu"><ul id="huifuBtnLi'+data[0].c_id+'"></ul></div>');
+                                    $('#huifuBtnLi'+data[0].c_id).append('<li><button type="button" class="btn btn-lg btn-link btn-block" id="replyFenYeBtn1' +data[0].c_id+ '">' + 1 + '</button></li>') //添加新按钮
                                     //为新的按钮添加点击事件
-                                    $('#replyFenYeBtn1'+data[0].c_id).click(p,function (p) {
+                                    $('#replyFenYeBtn1'+data[0].c_id).click(data[0].c_id,function (p) {
+
                                         $.ajax({
-                                            url: "http://localhost:8080/maven2-ssm/comment/getReplyByPage.action",
+                                        url: "http://47.93.49.124:81/tasty/comment/getReplyByPage.action",
                                             type: "post",
                                             contentType: 'application/json;charset=UTF-8',
-                                            data: '{"pageNum":"' + p.data.pageNum + '",' +
-                                            '"c_id":"' + p.data.c_id + '"}',
+                                            data: '{"pageNum":"' + 1 + '",' +
+                                            '"c_id":"' + p.data + '"}',
                                             dataType: 'json',
                                             success: function (d3) {
                                                 $('#huifuList'+d3[0].c_id).remove();//移除旧页的节点
@@ -196,7 +197,7 @@ function  commentAndReply() {
                                                     '<ul class="commentList" id="huifuList'+d3[0].c_id+'"> </ul> </div>')
                                                 for(var r=0;r<d3.length;r++) {
                                                     //往上面新添加的节点append回复信息
-                                                    $('#huifuList' + d3[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                    $('#huifuList' + d3[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+d3[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                         '<div class="comment-main"> ' +
                                                         '<header class="comment-header"> ' +
                                                         '<div class="comment-meta"><a class="comment-author" href="#">' + d3[r].user.name + '</a> 评论于 ' +
@@ -215,6 +216,7 @@ function  commentAndReply() {
                                         })
                                     })
                                 }
+
 //-------------------------------------------  //发表完后，如果pages为1的时候--------------end
                                 //判断是否需要添加一个新的分页按钮
                                 var newL = data[0].pageBean.pages;
@@ -226,7 +228,7 @@ function  commentAndReply() {
                                     //为新的按钮添加点击事件
                                     $('#replyFenYeBtn'+data[0].c_id+newL).click(pack,function (pack) {
                                         $.ajax({
-                                            url: "http://localhost:8080/maven2-ssm/comment/getReplyByPage.action",
+                                            url: "http://47.93.49.124:81/tasty/comment/getReplyByPage.action",
                                             type: "post",
                                             contentType: 'application/json;charset=UTF-8',
                                             data: '{"pageNum":"' + pack.data.pageNum + '",' +
@@ -240,7 +242,7 @@ function  commentAndReply() {
                                                     '<ul class="commentList" id="huifuList'+d3[0].c_id+'"> </ul> </div>')
                                                 for(var r=0;r<d3.length;r++) {
                                                     //往上面新添加的节点append回复信息
-                                                    $('#huifuList' + d3[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                    $('#huifuList' + d3[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+d3[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                         '<div class="comment-main"> ' +
                                                         '<header class="comment-header"> ' +
                                                         '<div class="comment-meta"><a class="comment-author" href="#">' + d3[r].user.name + '</a> 评论于 ' +
@@ -311,7 +313,7 @@ function  commentAndReply() {
 
                    //获取对应页数的数据
                    $.ajax({
-                       url: "http://localhost:8080/maven2-ssm/comment/getCommentByPage.action",
+                       url: "http://47.93.49.124:81/tasty/comment/getCommentByPage.action",
                        type: "post",
                        contentType: 'application/json;charset=UTF-8',
                        data: '{"pageNum":' + event.data + '}',
@@ -321,7 +323,7 @@ function  commentAndReply() {
                            $('.commentList').children().remove()
                            for(var i=0;i<comment.length;i++){
                                //这里添加评论的信息
-                               $('.commentList').append('<div id="cc'+data[i].c_id+'"><li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                               $('.commentList').append('<div id="cc'+data[i].c_id+'"><li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+data[i].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                    '<div class="comment-main">' +
                                    '<header class="comment-header">' +
                                    '<div class="comment-meta"><a class="comment-author" href="#">'+data[i].user.name+'</a> 评论于' +
@@ -351,7 +353,7 @@ function  commentAndReply() {
                                $('#reply'+data[i].c_id).click(data[i],function (event) {
                                    //ajax获取回复的信息
                                    $.ajax({
-                                       url: "http://localhost:8080/maven2-ssm/comment/getReplyByPage.action",
+                                       url: "http://47.93.49.124:81/tasty/comment/getReplyByPage.action",
                                        type: "post",
                                        contentType: 'application/json;charset=UTF-8',
                                        data:'{"pageNum":1,"c_id":"'+event.data.c_id+'"}',      //默认第一页
@@ -363,7 +365,7 @@ function  commentAndReply() {
                                                '<ul class="commentList" id="huifuList'+dd[0].c_id+'"> </ul> </div>')
                                            for(var r=0;r<dd.length;r++){
                                                //往上面新添加的节点append回复信息
-                                               $('#huifuList'+dd[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                               $('#huifuList'+dd[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+dd[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                    '<div class="comment-main"> ' +
                                                    '<header class="comment-header"> ' +
                                                    '<div class="comment-meta"><a class="comment-author" href="#">'+dd[r].user.name+'</a> 评论于 ' +
@@ -389,7 +391,7 @@ function  commentAndReply() {
                                                $('#replyFenYeBtn' + dd[0].c_id+r2).click(pack,function (pack) {
 
                                                    $.ajax({
-                                                       url: "http://localhost:8080/maven2-ssm/comment/getReplyByPage.action",
+                                                       url: "http://47.93.49.124:81/tasty/comment/getReplyByPage.action",
                                                        type: "post",
                                                        contentType: 'application/json;charset=UTF-8',
                                                        data: '{"pageNum":'+pack.data.pageNum+',"c_id":"'+pack.data.c_id+'"}',
@@ -404,7 +406,7 @@ function  commentAndReply() {
                                                                '<ul class="commentList" id="huifuList'+d1[0].c_id+'"> </ul> </div>')
                                                            for(var r=0;r<d1.length;r++) {
                                                                //往上面新添加的节点append回复信息
-                                                               $('#huifuList' + d1[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                               $('#huifuList' + d1[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+d1[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                                    '<div class="comment-main"> ' +
                                                                    '<header class="comment-header"> ' +
                                                                    '<div class="comment-meta"><a class="comment-author" href="#">' + d1[r].user.name + '</a> 评论于 ' +
@@ -448,7 +450,7 @@ function  commentAndReply() {
                                        var c_id = event.data.c_id
 
                                        $.ajax({
-                                           url: "http://localhost:8080/maven2-ssm/comment/insertReply.action",
+                                           url: "http://47.93.49.124:81/tasty/comment/insertReply.action",
                                            type: "post",
                                            contentType: 'application/json;charset=UTF-8',
                                            data: '{"r_words":"' + r_words + '",' +
@@ -466,7 +468,7 @@ function  commentAndReply() {
                                                for(var r=0;r<data.length;r++){
 
                                                    //往上面新添加的节点append回复信息
-                                                   $('#huifuList'+data[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                   $('#huifuList'+data[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+data[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                        '<div class="comment-main"> ' +
                                                        '<header class="comment-header"> ' +
                                                        '<div class="comment-meta"><a class="comment-author" href="#">'+data[r].user.name+'</a> 评论于 ' +
@@ -481,21 +483,17 @@ function  commentAndReply() {
                                                }
 
                                                //发表完后，如果pages为1的时候
-                                               if(data[0].pageBean.pages==1){
-
-                                                   var p = {"pageNum":1,"c_id":data[0].c_id}
-                                                   $('#huifuList'+data[0].c_id).after(' <div class="row" id="rowHuiFu"><ul id="huifuBtnLi'+data[0].c_id+'"></ul></div>')
-
-                                                   
-                                                   $('#huifuBtnLi'+data[0].c_id).append('<li><button type="button" class="btn btn-lg btn-link btn-block" id="replyFenYeBtn1' +data[0].c_id+ '>' + 1 + '</button></li>') //添加新按钮
+                                               if(data[0].pageBean.pages==1&&$('#huifuBtnLi'+data[0].c_id).children().length==0){
+                                                   $('#huifuList'+data[0].c_id).after(' <div class="row" id="rowHuiFu"><ul id="huifuBtnLi'+data[0].c_id+'"></ul></div>');
+                                                   $('#huifuBtnLi'+data[0].c_id).append('<li><button type="button" class="btn btn-lg btn-link btn-block" id="replyFenYeBtn1' +data[0].c_id+ '">' + 1 + '</button></li>') //添加新按钮
                                                    //为新的按钮添加点击事件
-                                                   $('#replyFenYeBtn1'+data[0].c_id).click(p,function (p) {
+                                                   $('#replyFenYeBtn1'+data[0].c_id).click(data[0].c_id,function (p) {
                                                        $.ajax({
-                                                           url: "http://localhost:8080/maven2-ssm/comment/getReplyByPage.action",
+                                                           url: "http://47.93.49.124:81/tasty/comment/getReplyByPage.action",
                                                            type: "post",
                                                            contentType: 'application/json;charset=UTF-8',
-                                                           data: '{"pageNum":"' + p.data.pageNum + '",' +
-                                                           '"c_id":"' + p.data.c_id + '"}',
+                                                           data: '{"pageNum":"' + 1 + '",' +
+                                                           '"c_id":"' + p.data + '"}',
                                                            dataType: 'json',
                                                            success: function (d3) {
                                                                $('#huifuList'+d3[0].c_id).remove();//移除旧页的节点
@@ -505,7 +503,7 @@ function  commentAndReply() {
                                                                    '<ul class="commentList" id="huifuList'+d3[0].c_id+'"> </ul> </div>')
                                                                for(var r=0;r<d3.length;r++) {
                                                                    //往上面新添加的节点append回复信息
-                                                                   $('#huifuList' + d3[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                                   $('#huifuList' + d3[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+d3[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                                        '<div class="comment-main"> ' +
                                                                        '<header class="comment-header"> ' +
                                                                        '<div class="comment-meta"><a class="comment-author" href="#">' + d3[r].user.name + '</a> 评论于 ' +
@@ -536,7 +534,7 @@ function  commentAndReply() {
                                                    //为新的按钮添加点击事件
                                                    $('#replyFenYeBtn'+data[0].c_id+newL).click(pack,function (pack) {
                                                        $.ajax({
-                                                           url: "http://localhost:8080/maven2-ssm/comment/getReplyByPage.action",
+                                                           url: "http://47.93.49.124:81/tasty/comment/getReplyByPage.action",
                                                            type: "post",
                                                            contentType: 'application/json;charset=UTF-8',
                                                            data: '{"pageNum":"' + pack.data.pageNum + '",' +
@@ -550,7 +548,7 @@ function  commentAndReply() {
                                                                    '<ul class="commentList" id="huifuList'+d3[0].c_id+'"> </ul> </div>')
                                                                for(var r=0;r<d3.length;r++) {
                                                                    //往上面新添加的节点append回复信息
-                                                                   $('#huifuList' + d3[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="././resources/page2/images/about.jpeg" height="50" width="50"></i></a> ' +
+                                                                   $('#huifuList' + d3[0].c_id).append(' <li class="item cl"> <a href="#"><i class="avatar size-L radius"><img alt="" src="'+d3[r].user.imgUrl+'" height="50" width="50"></i></a> ' +
                                                                        '<div class="comment-main"> ' +
                                                                        '<header class="comment-header"> ' +
                                                                        '<div class="comment-meta"><a class="comment-author" href="#">' + d3[r].user.name + '</a> 评论于 ' +
@@ -618,9 +616,56 @@ function  commentAndReply() {
 
 
            }
+            //添加新消息提示点击事件
+            //移除旧的
+            $("#newCommentTips").remove()
+            //重新添加
+            $(".list-group").before('<button class="btn btn-large btn-block" type="button" id="newCommentTips" style="color: black;" onclick="newCommentClick()">有新消息 </button>')
+            $("#newCommentTips").hide()
+            $("#newCommentTips").click(function(){
+
+                $('#fenyeBtn'+data[0].pageBean.pages).click()
+                $("#newCommentTips").hide()
+            })
+            //添加新消息提示点击事件结束
 
 
 
+
+            //sse
+            if (!!window.EventSource) { //EventSource是SSE的客户端.此时说明浏览器支持EventSource对象
+                var source = new EventSource('http://47.93.49.124:81/tasty/comment/push.action');//发送消息
+                s = '';
+                source.addEventListener('message', function(e) {
+                    // s += e.data + "<br/>";
+                    if(e.data>$("#commentNum").val()&&$("#icomment").val()=="0"){
+                        alert("有新消息，若消息翻页请重新刷新页面")
+                        $("#newCommentTips").show()
+                        $("#commentNum").val(e.data);
+
+                    }
+
+                    if($("#icomment").val()=="1"){
+                        $("#commentNum").val(e.data);
+                        $("#icomment").val("0")
+                    }
+
+                });//添加客户端的监听
+
+                source.addEventListener('open', function(e) {
+                    console.log("连接打开");
+                }, false);
+
+                source.addEventListener('error',function(e){
+                    if(e.readyState==EventSource.CLOSED){
+                        console.log("连接关闭");
+                    }else{
+                        console.log(e.readyState);
+                    }
+                });
+            }else{
+                console.log("您的浏览器不支持SSE");
+            }
         }
 //
 

@@ -15,14 +15,19 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
+import org.codehaus.jackson.map.ObjectMapper;
 /**
  * Created by 黄冠莳 on 2017/7/18.
  */
@@ -67,6 +72,7 @@ public class CommentController {
 
     }
 
+
     @RequestMapping("/getCommentByPage.action")
     @ResponseBody
     public String getCommentByPage(@RequestBody PageBean PageBean){
@@ -82,6 +88,9 @@ public class CommentController {
     public String insertReply(HttpServletRequest request, @RequestBody Reply reply) {
         //获取已登录的用户的信息
         User user = (User) request.getSession().getAttribute("user");
+        if(user==null){
+            return StringToJson.strToJson("fail");
+        }
         //将用户的主键设置到reply u_id中
         reply.setR_u_id(user.getU_id());
         //当前评论时间
@@ -104,16 +113,23 @@ public class CommentController {
        return message;
     }
 
-
-    @RequestMapping("/editorTest")
+    @RequestMapping(value="/push",produces="text/event-stream")
     @ResponseBody
-    public String editorTest(@RequestBody String biaoqing){
+    public String push(){
+        try {
+            Thread.sleep(3000);       //三秒一次
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        System.out.println("获得的表情"+biaoqing);
-        return "{\"biaoqing\":\"\"}";
+        return "data:"+commentService.getAllCounts()+"\n\n";
     }
-
-
+    @RequestMapping("/getAllCounts")
+    @ResponseBody
+    public String getAllCounts(){
+        int counts = commentService.getAllCounts();
+        return StringToJson.strToJson(String.valueOf(counts));
+    }
 
 
 
