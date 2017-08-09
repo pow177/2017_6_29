@@ -51,8 +51,11 @@ function addLogo(editor){
                                 alert("请填写评论信息")
                                 return false
                             }
-                            if(editor.txt.text().length>0&&editor.txt.text().length<=6){
+                            if(editor.txt.text().length>0&&editor.txt.text().length<6){
                                 alert("评论不得少于6个字")
+                                return false
+                            } if(editor.txt.text().length>250){
+                                alert("评论不得长于250个字")
                                 return false
                             }
 
@@ -695,7 +698,7 @@ function addLogo(editor){
                                         //移除旧的
                                         $("#newCommentTips").remove()
                                         //重新添加
-                                        $(".list-group").before('<button class="btn btn-large btn-block" type="button" id="newCommentTips" style="color: black;" onclick="newCommentClick()">有新消息 </button>')
+                                        $(".list-group").before('<button class="btn btn-large btn-block" type="button" id="newCommentTips" style="color: black;">有新消息 </button>')
                                         $("#newCommentTips").hide()
                                         $("#newCommentTips").click(function(){
 

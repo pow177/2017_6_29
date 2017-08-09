@@ -232,7 +232,7 @@
 
 		<div id="editor" class="col-md-12" style="color: black">
 
-			<p style="color: silver" id="lxpl">留下你的评论吧~</p>
+
 
 		</div>
 
@@ -332,29 +332,11 @@
             editor.create();
             //富文本创建结束
 
-
             editor.$textElem.attr('contenteditable', false);
 
-            $(editor.$textElem).click(function(){
-                $("#lxpl").remove()
-            })
             addValidate(editor)   //添加登录校验插件
             addLogo(editor)          //添加 "user" Logo 跟评论按钮
 
-//            $("#buu").click(function(){
-//                alert("yyy")
-////                alert($(p).html())
-////
-////                alert("xin1")
-//                alert(editor.$textElem.children().children().length)
-//                alert(editor.$textElem.children().html())
-//                var list = $("#loginImg").siblings()
-//                for(var i=0;i<list.length;i++){
-//                    if(list[i].src!=null){
-//                        alert(list[i].src)
-//                    }
-//                }
-//            })
         })
 
 
@@ -432,10 +414,7 @@
 	<script type="text/javascript" src="././resources/page2/js/signOut.js"></script>
 
 	<script type="text/javascript">
-//        $("#lxplb").click(function(){
-//            alert("c1")
-//            $("#lxplb").hide()
-//		})
+
 
 	</script>
 	</body>

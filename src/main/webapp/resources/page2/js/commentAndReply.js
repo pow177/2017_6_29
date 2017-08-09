@@ -617,11 +617,12 @@ function  commentAndReply() {
 
            }
             //添加新消息提示点击事件
-            //移除旧的
-            $("#newCommentTips").remove()
-            //重新添加
-            $(".list-group").before('<button class="btn btn-large btn-block" type="button" id="newCommentTips" style="color: black;" onclick="newCommentClick()">有新消息 </button>')
+
+
+          //生成 “新消息按钮并且隐藏”
+            $(".list-group").before('<button class="btn btn-large btn-block" type="button" id="newCommentTips" style="color: black;">有新消息 </button>')
             $("#newCommentTips").hide()
+            //新消息按钮点击事件
             $("#newCommentTips").click(function(){
 
                 $('#fenyeBtn'+data[0].pageBean.pages).click()
@@ -644,7 +645,7 @@ function  commentAndReply() {
                         $("#commentNum").val(e.data);
 
                     }
-
+                    //这里是判断是否该客户端发表了自己的评论
                     if($("#icomment").val()=="1"){
                         $("#commentNum").val(e.data);
                         $("#icomment").val("0")
