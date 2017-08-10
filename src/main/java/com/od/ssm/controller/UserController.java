@@ -462,6 +462,7 @@ public String  checkPhoneNumberIfRe(@RequestBody @Validated User user,BindingRes
         }
         request.getSession().setAttribute("resetUser_Id",tem1.getU_id());
         request.getSession().setAttribute("resetUser_phoneNumber",tem1.getPhoneNumber());
+        request.getSession().setAttribute("resetPassword_active","true");
          return "redirect:/page/resetPassword.action";
     }
 
@@ -475,28 +476,19 @@ public String  checkPhoneNumberIfRe(@RequestBody @Validated User user,BindingRes
           request.getSession().setAttribute("updataPassWordErrorMessage","你填写的手机号码不得修改");
           return "redirect:/page/updataPassWordErrorPage.action";
       }
+        String str = (String)request.getSession().getAttribute("resetPassword_active");
+        if(str==null){//验证是否可修改状态
+            request.getSession().setAttribute("updataPassWordErrorMessage","你填写的手机号码不得修改");
+            return "redirect:/page/updataPassWordErrorPage.action";
+        }
+        //更新密码的操作
+        //将key清空，防止同封邮件进行多次修改密码的行为
+        user.setValidataCode("");
+        //移除该session，标识当前修改密码的页面不得修改密码
+        request.getSession().removeAttribute("resetPassword_active");
         userService.updateUser(user);
       return "redirect:/page/updataPassWordSuccessPage.action";
     }
 
-    @RequestMapping("/cook")
-    public String cook(String name, HttpServletResponse response){
 
-        Cookie cookie = new Cookie("name",name);
-        cookie.setMaxAge(15);
-        response.addCookie(cookie);
-
-        return "cookT";
-    }
-
-    @RequestMapping("/cook1")
-    public void cook2(HttpServletRequest request){
-           Cookie[] cookies = request.getCookies();
-           for(int i=0;i<cookies.length;i++){
-               if(cookies[i].getName().equals("name")){
-                   System.out.println("名字:"+cookies[i].getValue());
-               }
-           }
-
-    }
 }

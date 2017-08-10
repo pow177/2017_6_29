@@ -39,10 +39,9 @@ public class UserServiceImpl implements UserService {
 		user.setName(user.getPhoneNumber());
 		//设置用户的头像图片
 		user.setImgUrl("http://47.93.49.124:81/tasty/userImgTem/defaultPic.jpg");
-		//插入后返回对应的主键
-		int keyId = userMapper.insertAndGetKey(user);
-		//设置主键信息
-		user.setU_id(keyId);
+		//插入后会映射对应的主键
+		userMapper.insertAndGetKey(user);
+
 		return user;
 	}
 
